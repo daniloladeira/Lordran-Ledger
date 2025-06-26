@@ -1,0 +1,128 @@
+/* Importar fonte medieval do Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cinzel+Decorative:wght@400;700&display=swap");
+
+/* Importações do PrimeNG */
+@import "primeicons/primeicons.css";
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+
+/* Reset Global */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: #0a0a0a;
+  color: #d4af37;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Utility Classes */
+.w-full {
+  width: 100% !important;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+  border-left: 1px solid #3a3a3a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #d4af37, #b8860b);
+  border-radius: 6px;
+  border: 1px solid #8b7355;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ffd700, #d4af37);
+}
+
+/* PrimeNG Global Overrides */
+.p-component {
+  font-family: "Cinzel", serif !important;
+}
+
+/* Dark Souls Theme Overrides */
+.p-dialog .p-dialog-header {
+  background: linear-gradient(135deg, #2a2a2a, #1a1a1a) !important;
+  color: #d4af37 !important;
+  border-bottom: 2px solid #8b7355 !important;
+  font-family: "Cinzel", serif !important;
+}
+
+.p-dialog .p-dialog-content {
+  background: linear-gradient(135deg, #2a2a2a, #1a1a1a) !important;
+  color: #c9b037 !important;
+}
+
+.p-dialog .p-dialog-footer {
+  background: linear-gradient(135deg, #2a2a2a, #1a1a1a) !important;
+  border-top: 1px solid #8b7355 !important;
+}
+
+.p-inputtext,
+.p-dropdown,
+.p-inputnumber input,
+.p-inputtextarea {
+  background: #1a1a1a !important;
+  color: #c9b037 !important;
+  border: 2px solid #8b7355 !important;
+  font-family: "Cinzel", serif !important;
+}
+
+.p-inputtext:focus,
+.p-dropdown:focus,
+.p-inputnumber input:focus,
+.p-inputtextarea:focus {
+  border-color: #d4af37 !important;
+  box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.3) !important;
+}
+
+.p-dropdown-panel {
+  background: #2a2a2a !important;
+  border: 2px solid #8b7355 !important;
+}
+
+.p-dropdown-item {
+  color: #c9b037 !important;
+  font-family: "Cinzel", serif !important;
+}
+
+.p-dropdown-item:hover {
+  background: #3a3a3a !important;
+}
+
+.p-checkbox .p-checkbox-box {
+  background: #1a1a1a !important;
+  border: 2px solid #8b7355 !important;
+}
+
+.p-checkbox .p-checkbox-box.p-highlight {
+  background: #d4af37 !important;
+  border-color: #d4af37 !important;
+}
+
+.p-toast .p-toast-message {
+  background: linear-gradient(135deg, #2a2a2a, #1a1a1a) !important;
+  border: 2px solid #8b7355 !important;
+  color: #c9b037 !important;
+  font-family: "Cinzel", serif !important;
+}
+
+.p-confirm-dialog .p-dialog-header,
+.p-confirm-dialog .p-dialog-content,
+.p-confirm-dialog .p-dialog-footer {
+  background: linear-gradient(135deg, #2a2a2a, #1a1a1a) !important;
+  color: #c9b037 !important;
+}

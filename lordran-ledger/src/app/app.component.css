@@ -1,0 +1,779 @@
+/* Dark Souls Authentic Variables */
+:host {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #1a1a1a;
+  --bg-tertiary: #2a2a2a;
+  --bg-quaternary: #3a3a3a;
+
+  --text-primary: #d4af37;
+  --text-secondary: #c9b037;
+  --text-muted: #8b7355;
+  --text-dark: #5a5a5a;
+
+  --accent-gold: #d4af37;
+  --accent-bronze: #cd7f32;
+  --accent-copper: #b87333;
+  --accent-dark-gold: #b8860b;
+
+  --border-primary: #8b7355;
+  --border-secondary: #5a5a5a;
+
+  --shadow-primary: 0 8px 32px rgba(0, 0, 0, 0.8);
+  --shadow-secondary: 0 4px 16px rgba(0, 0, 0, 0.6);
+
+  --rarity-common: #6c757d;
+  --rarity-rare: #007bff;
+  --rarity-legendary: #fd7e14;
+  --rarity-unique: #6f42c1;
+}
+
+/* Global Container */
+.lordran-container {
+  min-height: 100vh;
+  background: radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(184, 134, 11, 0.1) 0%, transparent 50%),
+    linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  color: var(--text-primary);
+  font-family: "Cinzel", serif;
+  position: relative;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.lordran-container::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23d4af37" opacity="0.02"/><circle cx="75" cy="75" r="1" fill="%23d4af37" opacity="0.02"/><circle cx="50" cy="10" r="0.5" fill="%23d4af37" opacity="0.03"/><circle cx="10" cy="90" r="0.5" fill="%23d4af37" opacity="0.03"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Header Simples */
+.header {
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+  border-bottom: 2px solid var(--accent-gold);
+  padding: 1.5rem 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+  position: relative;
+  z-index: 2;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-family: "Cinzel Decorative", serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--accent-gold);
+  margin: 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.title i {
+  font-size: 1.5rem;
+}
+
+.subtitle {
+  font-family: "Cinzel", serif;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Main Content */
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* Toolbar */
+.toolbar {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Inventory Grid */
+.inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 2rem;
+}
+
+/* Item Cards - Estilo Medieval */
+.item-card {
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  border: 3px solid var(--border-primary);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: var(--shadow-primary), inset 0 1px 0 rgba(212, 175, 55, 0.1);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.item-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(
+    90deg,
+    var(--accent-bronze),
+    var(--accent-gold),
+    var(--accent-copper),
+    var(--accent-gold),
+    var(--accent-bronze)
+  );
+}
+
+.item-card::after {
+  content: "⚜️";
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  color: var(--accent-gold);
+  opacity: 0.3;
+}
+
+.item-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.2);
+  border-color: var(--accent-gold);
+}
+
+.item-card:hover::after {
+  opacity: 0.8;
+  transform: rotate(360deg);
+  transition: all 0.6s ease;
+}
+
+.item-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 1.5rem;
+}
+
+.item-icon {
+  width: 70px;
+  height: 70px;
+  background: radial-gradient(circle, var(--accent-gold) 0%, var(--accent-dark-gold) 100%);
+  border: 3px solid var(--accent-bronze);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: var(--bg-primary);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.item-icon::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--accent-gold) 0deg,
+    var(--accent-bronze) 90deg,
+    var(--accent-copper) 180deg,
+    var(--accent-gold) 270deg
+  );
+  z-index: -1;
+}
+
+.item-info {
+  flex: 1;
+}
+
+.item-name {
+  font-family: "Cinzel Decorative", serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: var(--text-primary);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.item-type {
+  font-family: "Cinzel", serif;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 500;
+}
+
+.item-status {
+  display: flex;
+  align-items: center;
+}
+
+.equipped-badge {
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-bronze));
+  color: var(--bg-primary);
+  padding: 0.5rem 1.2rem;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--accent-copper);
+  font-family: "Cinzel", serif;
+  letter-spacing: 1px;
+}
+
+/* Item Stats - Estilo Pergaminho */
+.item-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  border-radius: 12px;
+  border: 2px solid var(--border-primary);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.item-stats::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="parchment" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="0.5" fill="%23d4af37" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23parchment)"/></svg>');
+  border-radius: 10px;
+  pointer-events: none;
+}
+
+.stat {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.stat-label {
+  display: block;
+  font-family: "Cinzel", serif;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.stat-value {
+  display: block;
+  font-family: "Cinzel Decorative", serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.stat-value.souls {
+  color: var(--accent-gold);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8), 0 0 10px rgba(212, 175, 55, 0.4);
+}
+
+/* Item Description - Estilo Manuscrito */
+.item-description {
+  font-family: "Cinzel", serif;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  font-style: italic;
+  min-height: 3.5rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 100%);
+  border-radius: 12px;
+  border-left: 4px solid var(--accent-gold);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+/* Item Actions */
+.item-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid var(--border-primary);
+}
+
+/* Rarity Classes - Cores Autênticas */
+.rarity-common {
+  color: var(--rarity-common) !important;
+}
+
+.rarity-rare {
+  color: var(--rarity-rare) !important;
+  text-shadow: 0 0 8px rgba(65, 105, 225, 0.3);
+}
+
+.rarity-legendary {
+  color: var(--rarity-legendary) !important;
+  text-shadow: 0 0 12px rgba(255, 140, 0, 0.4);
+}
+
+.rarity-unique {
+  color: var(--rarity-unique) !important;
+  text-shadow: 0 0 12px rgba(138, 43, 226, 0.4);
+}
+
+/* Dialog Content - SEM PADDING EXTRA */
+.dialog-content {
+  /* Removido padding para evitar scroll */
+}
+
+.detail-content {
+  /* Removido padding para evitar scroll */
+}
+
+/* Form Fields - Espaçamento Reduzido */
+.field {
+  margin-bottom: 1.5rem;
+}
+
+.field:last-child {
+  margin-bottom: 0;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  font-family: "Cinzel", serif;
+}
+
+.field-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.checkbox-field {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  border-radius: 8px;
+  border: 1px solid var(--border-primary);
+}
+
+.checkbox-field label {
+  margin: 0;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* Detail Dialog - Compacto */
+.detail-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-primary);
+}
+
+.detail-icon {
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle, var(--accent-gold) 0%, var(--accent-dark-gold) 100%);
+  border: 2px solid var(--accent-bronze);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: var(--bg-primary);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.detail-name {
+  font-family: "Cinzel Decorative", serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text-primary);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.detail-type {
+  font-family: "Cinzel", serif;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+  margin-top: 0.25rem;
+}
+
+.detail-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.detail-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  border-radius: 8px;
+  border: 1px solid var(--border-primary);
+}
+
+.detail-label {
+  font-family: "Cinzel", serif;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.8rem;
+}
+
+.detail-value {
+  font-family: "Cinzel Decorative", serif;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.detail-value.equipped {
+  color: var(--accent-gold);
+}
+
+.detail-value.unequipped {
+  color: var(--text-muted);
+}
+
+.detail-value.souls {
+  color: var(--accent-gold);
+}
+
+.detail-description {
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-primary);
+}
+
+.detail-description h4 {
+  color: var(--accent-gold);
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+  font-family: "Cinzel Decorative", serif;
+  font-weight: 600;
+}
+
+.detail-description p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-style: italic;
+  font-family: "Cinzel", serif;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .inventory-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .main-content {
+    padding: 1.5rem 1rem;
+  }
+
+  .field-group {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .container {
+    padding: 1rem;
+  }
+}
+
+/* Botão Add New Item - Estilo Dark Souls */
+::ng-deep .add-button.p-button {
+  background: linear-gradient(135deg, #d4af37, #cd7f32) !important;
+  border: 2px solid #b87333 !important;
+  color: #0a0a0a !important;
+  font-family: "Cinzel", serif !important;
+  font-weight: 600 !important;
+  padding: 0.75rem 2rem !important;
+  border-radius: 12px !important;
+  transition: all 0.4s ease !important;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-size: 0.9rem !important;
+}
+
+::ng-deep .add-button.p-button:hover {
+  transform: translateY(-2px) scale(1.05) !important;
+  box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4) !important;
+  background: linear-gradient(135deg, #ffd700, #d4af37) !important;
+}
+
+::ng-deep .add-button.p-button:active {
+  transform: translateY(0) scale(1.02) !important;
+}
+
+/* Alternativa mais específica caso a primeira não funcione */
+::ng-deep p-button.add-button .p-button {
+  background: linear-gradient(135deg, #d4af37, #cd7f32) !important;
+  border: 2px solid #b87333 !important;
+  color: #0a0a0a !important;
+  font-family: "Cinzel", serif !important;
+  font-weight: 600 !important;
+  padding: 0.75rem 2rem !important;
+  border-radius: 12px !important;
+  transition: all 0.4s ease !important;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+}
+
+::ng-deep p-button.add-button .p-button:hover {
+  transform: translateY(-2px) scale(1.05) !important;
+  box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4) !important;
+  background: linear-gradient(135deg, #ffd700, #d4af37) !important;
+}
+
+/* Botões de Ação */
+::ng-deep .lordran-container .action-btn.p-button.p-component,
+::ng-deep .lordran-container .item-actions .p-button.p-component {
+  width: 45px !important;
+  height: 45px !important;
+  border-radius: 50% !important;
+  transition: all 0.3s ease !important;
+  background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-quaternary)) !important;
+  border: 2px solid var(--border-primary) !important;
+  color: var(--text-primary) !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+  min-width: 45px !important;
+}
+
+::ng-deep .lordran-container .action-btn.p-button.p-component:hover,
+::ng-deep .lordran-container .item-actions .p-button.p-component:hover {
+  transform: scale(1.1) !important;
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-bronze)) !important;
+  color: var(--bg-primary) !important;
+  box-shadow: 0 6px 12px rgba(212, 175, 55, 0.4) !important;
+}
+
+::ng-deep .lordran-container .action-btn.p-button-danger.p-component:hover,
+::ng-deep .lordran-container .item-actions .p-button-danger.p-component:hover {
+  background: linear-gradient(135deg, #dc3545, #c82333) !important;
+  color: white !important;
+}
+
+/* Dialog Styles - SEM SCROLL */
+::ng-deep .item-dialog .p-dialog-content,
+::ng-deep .detail-dialog .p-dialog-content {
+  padding: 1.5rem !important;
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%) !important;
+  color: var(--text-primary) !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+::ng-deep .item-dialog .p-dialog-header,
+::ng-deep .detail-dialog .p-dialog-header {
+  padding: 1rem 1.5rem !important;
+  background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary)) !important;
+  color: var(--text-primary) !important;
+  border-bottom: 2px solid var(--accent-gold) !important;
+}
+
+::ng-deep .item-dialog .p-dialog-footer,
+::ng-deep .detail-dialog .p-dialog-footer {
+  padding: 1rem 1.5rem !important;
+  background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary)) !important;
+  border-top: 1px solid var(--border-primary) !important;
+  gap: 1rem !important;
+}
+
+::ng-deep .item-dialog .p-dialog-header .p-dialog-title,
+::ng-deep .detail-dialog .p-dialog-header .p-dialog-title {
+  color: var(--accent-gold) !important;
+  font-family: "Cinzel Decorative", serif !important;
+  font-weight: 600 !important;
+  font-size: 1.2rem !important;
+}
+
+/* Dialog sem altura fixa */
+::ng-deep .p-dialog .p-dialog-content {
+  overflow-y: visible !important;
+  max-height: none !important;
+}
+
+/* Botões de Dialog */
+::ng-deep .p-dialog .p-dialog-footer .p-button.p-component {
+  background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-quaternary)) !important;
+  border: 2px solid var(--border-primary) !important;
+  color: var(--text-primary) !important;
+  font-family: "Cinzel", serif !important;
+  font-weight: 500 !important;
+  padding: 0.6rem 1.2rem !important;
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  font-size: 0.85rem !important;
+}
+
+::ng-deep .p-dialog .p-dialog-footer .p-button.p-component:hover {
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-bronze)) !important;
+  color: var(--bg-primary) !important;
+  border-color: var(--accent-gold) !important;
+  transform: translateY(-1px) !important;
+}
+
+::ng-deep .p-dialog .p-dialog-footer .p-button-text.p-component {
+  background: transparent !important;
+  border: 2px solid var(--border-secondary) !important;
+  color: var(--text-muted) !important;
+}
+
+::ng-deep .p-dialog .p-dialog-footer .p-button-text.p-component:hover {
+  background: var(--bg-quaternary) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-primary) !important;
+}
+
+/* Form Controls */
+::ng-deep .lordran-container .p-inputtext,
+::ng-deep .lordran-container .p-dropdown,
+::ng-deep .lordran-container .p-inputnumber input,
+::ng-deep .lordran-container .p-inputtextarea {
+  background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary)) !important;
+  color: var(--text-primary) !important;
+  border: 2px solid var(--border-primary) !important;
+  border-radius: 8px !important;
+  padding: 0.75rem !important;
+  font-family: "Cinzel", serif !important;
+  font-size: 0.9rem !important;
+  transition: all 0.3s ease !important;
+}
+
+::ng-deep .lordran-container .p-inputtext:focus,
+::ng-deep .lordran-container .p-dropdown:focus,
+::ng-deep .lordran-container .p-inputnumber input:focus,
+::ng-deep .lordran-container .p-inputtextarea:focus {
+  border-color: var(--accent-gold) !important;
+  box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.2) !important;
+}
+
+::ng-deep .lordran-container .p-inputtextarea {
+  min-height: 80px !important;
+  resize: vertical !important;
+}
+
+::ng-deep .lordran-container .p-checkbox .p-checkbox-box {
+  background: var(--bg-primary) !important;
+  border: 2px solid var(--border-primary) !important;
+  border-radius: 4px !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+
+::ng-deep .lordran-container .p-checkbox .p-checkbox-box.p-highlight {
+  background: var(--accent-gold) !important;
+  border-color: var(--accent-gold) !important;
+}
+
+.p-card {
+  height: 100%;
+}
+
+/* Modal Width Customization */
+::ng-deep .item-dialog .p-dialog,
+::ng-deep .detail-dialog .p-dialog {
+  width: 600px !important;
+  max-width: 90vw !important;
+}
+
+/* Para telas menores, ajustar responsivamente */
+@media (max-width: 768px) {
+  ::ng-deep .item-dialog .p-dialog,
+  ::ng-deep .detail-dialog .p-dialog {
+    width: 95vw !important;
+    max-width: 95vw !important;
+  }
+}
+
+/* Se quiser diferentes larguras para cada tipo de modal */
+::ng-deep .item-dialog .p-dialog {
+  width: 650px !important; /* Modal de adicionar/editar item */
+}
+
+::ng-deep .detail-dialog .p-dialog {
+  width: 500px !important; /* Modal de detalhes */
+}
