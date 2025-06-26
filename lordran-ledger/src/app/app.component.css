@@ -708,9 +708,8 @@
   border-color: var(--border-primary) !important;
 }
 
-/* Form Controls */
+/* Form Controls - DROPDOWN CORRIGIDO */
 ::ng-deep .lordran-container .p-inputtext,
-::ng-deep .lordran-container .p-dropdown,
 ::ng-deep .lordran-container .p-inputnumber input,
 ::ng-deep .lordran-container .p-inputtextarea {
   background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary)) !important;
@@ -721,6 +720,32 @@
   font-family: "Cinzel", serif !important;
   font-size: 0.9rem !important;
   transition: all 0.3s ease !important;
+}
+
+/* Dropdown - Removendo bordas duplas */
+::ng-deep .lordran-container .p-dropdown {
+  background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary)) !important;
+  border: 2px solid var(--border-primary) !important;
+  border-radius: 8px !important;
+  font-family: "Cinzel", serif !important;
+  font-size: 0.9rem !important;
+  transition: all 0.3s ease !important;
+}
+
+::ng-deep .lordran-container .p-dropdown .p-dropdown-label {
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-primary) !important;
+  padding: 0.75rem !important;
+  font-family: "Cinzel", serif !important;
+  font-size: 0.9rem !important;
+}
+
+::ng-deep .lordran-container .p-dropdown .p-dropdown-trigger {
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-primary) !important;
+  width: 2.5rem !important;
 }
 
 ::ng-deep .lordran-container .p-inputtext:focus,
@@ -734,6 +759,31 @@
 ::ng-deep .lordran-container .p-inputtextarea {
   min-height: 80px !important;
   resize: vertical !important;
+}
+
+/* Dropdown Panel */
+::ng-deep .p-dropdown-panel {
+  background: var(--bg-secondary) !important;
+  border: 2px solid var(--border-primary) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6) !important;
+}
+
+::ng-deep .p-dropdown-item {
+  color: var(--text-primary) !important;
+  font-family: "Cinzel", serif !important;
+  padding: 0.75rem 1rem !important;
+  transition: all 0.2s ease !important;
+}
+
+::ng-deep .p-dropdown-item:hover {
+  background: var(--bg-tertiary) !important;
+  color: var(--accent-gold) !important;
+}
+
+::ng-deep .p-dropdown-item.p-highlight {
+  background: var(--accent-gold) !important;
+  color: var(--bg-primary) !important;
 }
 
 ::ng-deep .lordran-container .p-checkbox .p-checkbox-box {
