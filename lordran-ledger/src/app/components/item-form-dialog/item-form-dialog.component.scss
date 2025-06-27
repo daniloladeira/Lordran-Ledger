@@ -1,0 +1,62 @@
+/* src/app/components/item-form-dialog/item-form-dialog.component.scss */
+/* Estilos para o formulário de diálogo, sem sobrescrever componentes PrimeNG */
+.dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+
+  label {
+    font-weight: 600;
+    color: var(--color-text-primary);
+    font-size: 1.05rem;
+  }
+
+  /* Estilo para inputs de texto e textareas (elementos HTML puros), não para componentes PrimeNG */
+  input[type="text"],
+  textarea {
+    /* Estas propriedades serão aplicadas aos inputs HTML nativos.
+       Os p-inputtext, p-dropdown, p-inputnumber etc. do PrimeNG usarão seus próprios estilos. */
+    background-color: var(--color-primary-background); /* Fundo claro para inputs */
+    border: 1px solid var(--color-border-subtle);
+    color: var(--color-text-primary);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    transition: all 0.2s ease-in-out;
+    font-size: 1rem;
+
+    &:focus {
+      border-color: var(--color-accent-blue);
+      box-shadow: 0 0 0 0.18rem rgba(10, 132, 255, 0.25);
+      outline: none;
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+}
+
+.field-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.checkbox-field {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  label {
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+  }
+}
