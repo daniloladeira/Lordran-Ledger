@@ -1,4 +1,3 @@
-<!-- shared/components/item-detail-dialog/item-detail-dialog.component.html -->
 <p-dialog
   [(visible)]="displayDetailDialog"
   header="Item Details"
@@ -11,16 +10,10 @@
 >
   <div class="detail-content">
     <div class="detail-header">
-      <div class="detail-icon">
-        <!-- Icon based on item type -->
-        <i [class]="getTypeIcon(selectedItem.type)"></i>
-      </div>
       <div>
-        <!-- Item name with rarity-based styling -->
         <h2 class="detail-name" [class]="getRarityClass(selectedItem.rarity)">
           {{ selectedItem.name }}
         </h2>
-        <!-- Item type, capitalized -->
         <span class="detail-type">{{ selectedItem.type | titlecase }}</span>
       </div>
     </div>
@@ -32,19 +25,16 @@
       </div>
       <div class="detail-stat">
         <span class="detail-label">Souls:</span>
-        <!-- Souls value with specific styling -->
         <span class="detail-value souls">{{ selectedItem.souls }}</span>
       </div>
       <div class="detail-stat">
         <span class="detail-label">Rarity:</span>
-        <!-- Rarity value with rarity-based styling -->
         <span class="detail-value" [class]="getRarityClass(selectedItem.rarity)">
           {{ selectedItem.rarity | titlecase }}
         </span>
       </div>
       <div class="detail-stat">
         <span class="detail-label">Status:</span>
-        <!-- Equipped status with conditional styling -->
         <span class="detail-value" [class]="selectedItem.equipped ? 'equipped' : 'unequipped'">
           {{ selectedItem.equipped ? 'Equipped' : 'Not Equipped' }}
         </span>
@@ -53,7 +43,6 @@
 
     <div class="detail-description">
       <h4>Description</h4>
-      <!-- Item description, with a fallback if empty -->
       <p>{{ selectedItem.description || 'No description available.' }}</p>
     </div>
   </div>
@@ -63,8 +52,7 @@
       label="Close"
       icon="pi pi-times"
       (onClick)="onClose()"
-      class="p-button-text"
-    >
+      severity="secondary" >
     </p-button>
   </ng-template>
 </p-dialog>

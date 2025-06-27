@@ -2,27 +2,11 @@
 /* Estilo global da aplicação - focado em layout e variáveis, sem sobrescrever PrimeNG */
 
 :root {
-  /* Paleta de Cores (ajustada para um fundo mais neutro que o PrimeNG não sobrescreva) */
-  --color-primary-background: #ffffff; /* Fundo principal claro */
-  --color-secondary-background: #f0f2f5; /* Fundo de elementos/cartões mais claro (neutro) */
-  --color-border-subtle: #d6d6d6; /* Linhas divisórias sutis (neutro) */
-  --color-text-primary: #333333; /* Texto principal escuro */
-  --color-text-secondary: #666666; /* Texto secundário/sutil */
-  --color-accent-blue: #0a84ff; /* Azul vibrante (mantido para elementos customizados) */
-  --color-accent-gold: #ffc200; /* Um dourado mais suave (mantido) */
-  --color-success: #32d74b; /* Verde para sucesso */
-  --color-warning: #ff9f0a; /* Amarelo para aviso */
-  --color-error: #ff453a; /* Vermelho para erro */
-
-  /* Cores de Raridade (mantidas vibrantes, para seus elementos customizados) */
-  --rarity-common: #8e8e93; /* Cinza neutro */
-  --rarity-rare: #0a84ff; /* Azul */
-  --rarity-legendary: #ffc200; /* Ouro suave */
-  --rarity-unique: #bf5af2; /* Roxo */
+  /* ... (suas variáveis de cor e outras fontes existentes aqui) ... */
 
   /* Fontes */
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-  --font-special-title: 'Cinzel Decorative', serif; /* Mantido para o toque "Lordran" */
+  --font-special-title: 'MedievalSharp', serif; /* ALTERADO AQUI: 'MedievalSharp' agora é a fonte especial */
 }
 
 body {
@@ -46,32 +30,75 @@ body {
 .header {
   background: var(--color-secondary-background);
   color: var(--color-text-primary);
-  padding: 2rem 2.5rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave para tema claro */
-  text-align: center;
-  border-bottom: 1px solid var(--color-border-subtle);
-  border-radius: 0 0 12px 12px;
+  padding: 1.5rem 2.5rem; /* Ajuste o padding para um header mais compacto e moderno */
+  border-bottom: 1px solid rgba(60, 60, 67, 0.15); /* Apple-like subtle border */
+  backdrop-filter: blur(8px); /* Optional: subtle glass effect */
   position: sticky;
   top: 0;
   z-index: 1000;
-  /* Remover backdrop-filter e rgba background-color para manter a simplicidade e evitar conflitos */
 }
 
 .header-content {
-  max-width: 1400px;
   margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
-.title {
-  font-size: 3.8rem;
+/* Estilos para o Logo/Título Principal */
+.logo-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+}
+
+.logo-title {
+  font-size: 2.2rem;
   margin: 0;
-  font-family: var(--font-special-title);
+  font-family: var(--font-special-title); /* AGORA USARÁ 'MedievalSharp' */
   color: var(--color-accent-gold);
-  text-shadow: 0 0 10px rgba(255, 194, 0, 0.2);
-  letter-spacing: 0.05rem;
-  font-weight: 700;
+  text-shadow: 0 0 6px hsla(43, 100%, 52%, 0.1);
+  letter-spacing: 0.03rem;
 }
 
+/* .logo-image { ... } */
+
+/* Estilos para o Menu de Navegação */
+.main-nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2.5rem;
+}
+
+.main-nav li a {
+  text-decoration: none;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  font-size: 1.1rem;
+  transition: color 0.2s ease;
+}
+
+.main-nav li a:hover {
+  color: var(--color-accent-blue);
+}
+
+.main-nav .nav-icon {
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-primary);
+}
+
+.main-nav .nav-icon:hover {
+  color: var(--color-accent-blue);
+}
+
+/* Ajustes para o subtítulo, se ele ainda for usado em algum lugar */
 .subtitle {
   font-size: 1.4rem;
   color: var(--color-text-secondary);
@@ -82,47 +109,13 @@ body {
 .main-content {
   flex-grow: 1;
   padding: 3rem;
-  max-width: 1400px;
   margin: 0 auto;
   width: 100%;
   box-sizing: border-box;
 }
 
-/* Classes de raridade (para seus elementos customizados, não PrimeNG) */
+/* Classes de raridade (sem alterações) */
 .rarity-common { color: var(--rarity-common); }
 .rarity-rare { color: var(--rarity-rare); }
 .rarity-legendary { color: var(--rarity-legendary); }
 .rarity-unique { color: var(--rarity-unique); }
-
-/* Ajustes responsivos */
-@media (max-width: 768px) {
-  .header {
-    padding: 1.5rem 1.5rem;
-    .title {
-      font-size: 2.8rem;
-    }
-    .subtitle {
-      font-size: 1.2rem;
-    }
-  }
-
-  .main-content {
-    padding: 1.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .header {
-    padding: 1rem 1rem;
-    .title {
-      font-size: 2.2rem;
-    }
-    .subtitle {
-      font-size: 1rem;
-    }
-  }
-
-  .main-content {
-    padding: 1rem;
-  }
-}

@@ -1,135 +1,44 @@
-/* src/app/components/item-card/item-card.component.scss */
-/* Estilos para o cartão de item, sem sobrescrever componentes PrimeNG */
-.item-card {
-  border-radius: 10px; /* Cantos mais arredondados */
-  padding: 1.5rem; /* Mais preenchimento */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  border: 1px solid var(--color-border-subtle); /* Borda sutil */
-  overflow: hidden;
-  position: relative;
+/* shared/components/item-card/item-card.component.scss */
 
-  &:hover {
-    transform: translateY(-5px); /* Efeito de elevação sutil */
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15); /* Sombra mais visível no hover */
-  }
+// ... (seus outros estilos para .btn-container, .card-image, p-card-header, etc.) ...
 
-  .item-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1.2rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px dashed rgba(var(--color-border-subtle), 0.5);
-
-    .item-icon {
-      font-size: 3rem;
-      margin-right: 1.2rem;
-      color: var(--color-accent-gold); /* Ícone dourado */
-    }
-
-    .item-info {
-      flex-grow: 1;
-
-      .item-name {
-        margin: 0;
-        font-size: 1.8rem;
-        font-weight: 700;
-        line-height: 1.2;
-        /* Cores de raridade - usam variáveis globais */
-        &.rarity-common { color: var(--rarity-common); }
-        &.rarity-rare { color: var(--rarity-rare); }
-        &.rarity-legendary { color: var(--rarity-legendary); }
-        &.rarity-unique { color: var(--rarity-unique); }
-      }
-
-      .item-type {
-        font-size: 1rem;
-        color: var(--color-text-secondary);
-        margin-top: 0.2rem;
-        display: block;
-      }
-    }
-
-    .item-status {
-      .equipped-badge {
-        background-color: var(--color-success);
-        color: white;
-        padding: 0.4rem 0.8rem;
-        border-radius: 6px;
-        font-size: 0.85rem;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        gap: 0.3rem;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      }
-    }
-  }
-
-  .item-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.8rem;
-    margin-bottom: 1.5rem;
-    padding-top: 1rem;
-    border-top: 1px dashed rgba(var(--color-border-subtle), 0.5);
-    font-size: 0.95rem;
-
-    .stat {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.4rem 0;
-
-      .stat-label {
-        color: var(--color-text-secondary);
-        font-weight: 500;
-      }
-
-      .stat-value {
-        color: var(--color-text-primary);
-        font-weight: 700;
-        &.souls {
-          color: var(--color-error); /* Vermelho para almas (agora 'error' da paleta) */
-          font-weight: 800;
-        }
-        /* Cores de raridade - usam variáveis globais */
-        &.rarity-common { color: var(--rarity-common); }
-        &.rarity-rare { color: var(--rarity-rare); }
-        &.rarity-legendary { color: var(--rarity-legendary); }
-        &.rarity-unique { color: var(--rarity-unique); }
-      }
-    }
-  }
-
-  .item-description {
-    font-size: 0.95rem;
-    color: var(--color-text-secondary);
-    flex-grow: 1;
-    margin-bottom: 1.5rem;
-    line-height: 1.5;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-  }
-
-  .item-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.75rem;
-    padding-top: 1.2rem;
-    border-top: 1px dashed rgba(var(--color-border-subtle), 0.5);
-
-    /* Os p-buttons aqui usarão os estilos padrão do PrimeNG.
-       Apenas alguns ajustes mínimos de layout são mantidos, se necessário. */
-    .action-btn {
-      /* Pode ajustar padding/margin se PrimeNG padrão não for suficiente para layout */
-      /* Removi overrides específicos de cor e fundo, PrimeNG fará isso */
-    }
-  }
+/* Estilo para o TÍTULO principal do card ({{ item.name }}) */
+:host ::ng-deep .item-card .p-card-title {
+  font-family: var(--font-special-title); /* Aplica a fonte especial ao título principal do card */
+  /* Você pode adicionar outros estilos aqui, como: */
+  /* font-size: 1.8rem; */
+  /* color: var(--color-text-primary); */
 }
+
+.btn-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto; /* Garante que os botões fiquem na parte inferior do card */
+}
+
+/* Se você ainda quiser o 'title-text' para o subtítulo, mantenha esta regra: */
+.title-text {
+  font-family: var(--font-special-title);
+}
+
+/* --- ESTILOS PARA GARANTIR ALTURA FIXA DA IMAGEM --- */
+
+:host ::ng-deep .item-card .p-card-header {
+  height: 200px; /* Altere este valor para o tamanho fixo desejado, por exemplo, 250px, 180px */
+  width: 100%; /* Garante que a div ocupe toda a largura disponível */
+  overflow: hidden;
+  display: flex; /* Para centralizar o conteúdo (imagem ou placeholder) */
+  align-items: center; /* Centraliza verticalmente */
+  justify-content: center; /* Centraliza horizontalmente */
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+:host ::ng-deep .item-card .p-card-header img {
+  width: 100%;
+  height: 100%; /* A imagem preenche a altura fixa do seu contêiner */
+  object-fit: cover; /* Recorta a imagem para preencher o espaço sem distorcer */
+  display: block;
+}
+
+/* --- FIM DOS ESTILOS DE ALTURA FIXA DA IMAGEM --- */
