@@ -1,4 +1,3 @@
-<!-- shared/components/item-form-dialog/item-form-dialog.component.html -->
 <p-dialog
   [(visible)]="displayDialog"
   [header]="isEditing ? 'Edit Item' : 'Add New Item'"
@@ -17,9 +16,7 @@
         pInputText
         [(ngModel)]="itemForm.name"
         placeholder="Enter item name"
-        class="w-full"
-      />
-    </div>
+        > </div>
 
     <div class="field-group">
       <div class="field">
@@ -29,9 +26,7 @@
           [(ngModel)]="itemForm.type"
           [options]="typeOptions"
           placeholder="Select type"
-          class="w-full"
-        >
-        </p-dropdown>
+          > </p-dropdown>
       </div>
 
       <div class="field">
@@ -41,9 +36,7 @@
           [(ngModel)]="itemForm.rarity"
           [options]="rarityOptions"
           placeholder="Select rarity"
-          class="w-full"
-        >
-        </p-dropdown>
+          > </p-dropdown>
       </div>
     </div>
 
@@ -55,9 +48,7 @@
           [(ngModel)]="itemForm.value"
           [min]="0"
           placeholder="0"
-          class="w-full"
-        >
-        </p-inputNumber>
+          > </p-inputNumber>
       </div>
 
       <div class="field">
@@ -67,9 +58,7 @@
           [(ngModel)]="itemForm.souls"
           [min]="0"
           placeholder="0"
-          class="w-full"
-        >
-        </p-inputNumber>
+          > </p-inputNumber>
       </div>
     </div>
 
@@ -93,9 +82,7 @@
         [(ngModel)]="itemForm.description"
         rows="3"
         placeholder="Enter item description"
-        class="w-full"
-      >
-      </textarea>
+        > </textarea>
     </div>
   </div>
 
@@ -104,13 +91,14 @@
       label="Cancel"
       icon="pi pi-times"
       (onClick)="onCancel()"
-      class="p-button-text"
+      severity="secondary"
     >
     </p-button>
     <p-button
       [label]="isEditing ? 'Update' : 'Save'"
       icon="pi pi-check"
       (onClick)="onSave()"
+      severity="primary"
     >
     </p-button>
   </ng-template>

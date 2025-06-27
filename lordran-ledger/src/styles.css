@@ -4,8 +4,8 @@
 /* --- Importação de Estilos PrimeNG --- */
 /* Estilos base do PrimeNG: Fornece a estrutura e estilos reset para os componentes. */
 @import "primeng/resources/primeng.min.css";
-/* Tema PrimeNG: Reintroduzindo 'lara-light-blue' para dar a aparência visual aos componentes. */
-@import "primeng/resources/themes/lara-light-blue/theme.css";
+/* Tema PrimeNG: Trocando para 'lara-dark-blue' para um tema escuro padrão. */
+@import "primeng/resources/themes/rhea/theme.css";
 /* Ícones do PrimeIcons: Essencial para que os ícones (pi pi-plus, pi pi-eye, etc.) sejam exibidos. */
 @import "primeicons/primeicons.css";
 
@@ -14,6 +14,8 @@
 /* A fonte 'Inter' é moderna e limpa, similar à SF Pro Display da Apple. */
 /* 'Cinzel Decorative' mantém o toque temático "Lordran". */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cinzel+Decorative:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+
 
 /* --- Importação de Estilos Globais Customizados --- */
 /* Este arquivo contém as variáveis CSS customizadas e os estilos globais do seu aplicativo. */

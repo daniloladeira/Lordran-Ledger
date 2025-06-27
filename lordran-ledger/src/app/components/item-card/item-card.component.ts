@@ -23,10 +23,6 @@ export class ItemCardComponent {
    */
   getTypeIcon(type: string): string {
     const icons: { [key: string]: string } = {
-      weapon: 'pi pi-bolt',
-      armor: 'pi pi-shield',
-      ring: 'pi pi-circle',
-      consumable: 'pi pi-heart',
     };
     // Returns the corresponding icon or a default box icon if not found
     return icons[type.toLowerCase()] || 'pi pi-box';

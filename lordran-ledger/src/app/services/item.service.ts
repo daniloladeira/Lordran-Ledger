@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core"
-import { BehaviorSubject, type Observable } from "rxjs" // Remover 'type' do Observable
+import { BehaviorSubject, type Observable } from "rxjs"
 import type { Item, ItemForm } from "../models/item.model"
 
 @Injectable({
@@ -16,6 +16,8 @@ export class ItemService {
       equipped: true,
       description: "Undead treasure that restores HP",
       souls: 0,
+      // Using a specific image URL from your service for Estus Flask
+      imageUrl: '../assets/Estus.jpg',
     },
     {
       id: 2,
@@ -26,6 +28,8 @@ export class ItemService {
       equipped: false,
       description: "Ultra greatsword with devastating power",
       souls: 2000,
+      // Using a specific image URL from your service for Zweihander
+      imageUrl: '../assets/zweihander.jpeg',
     },
     {
       id: 3,
@@ -36,6 +40,8 @@ export class ItemService {
       equipped: true,
       description: "Increases HP, stamina and equip load",
       souls: 5000,
+      // Using a specific image URL from your service for Ring
+      imageUrl: '../assets/ring.webp',
     },
   ]
 
