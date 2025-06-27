@@ -1,0 +1,71 @@
+<div class="item-card">
+  <div class="item-header">
+    <div class="item-icon">
+      <!-- Displays an icon based on the item's type -->
+      <i [class]="getTypeIcon(item.type)"></i>
+    </div>
+    <div class="item-info">
+      <!-- Displays item name with rarity-based styling -->
+      <h3 class="item-name" [class]="getRarityClass(item.rarity)">
+        {{ item.name }}
+      </h3>
+      <!-- Displays item type, capitalized -->
+      <span class="item-type">{{ item.type | titlecase }}</span>
+    </div>
+    <div class="item-status">
+      <!-- Shows "Equipped" badge if item is equipped -->
+      <span class="equipped-badge" *ngIf="item.equipped">
+        <i class="pi pi-check"></i> Equipped
+      </span>
+    </div>
+  </div>
+
+  <div class="item-stats">
+    <div class="stat">
+      <span class="stat-label">Value:</span>
+      <span class="stat-value">{{ item.value }}</span>
+    </div>
+    <div class="stat">
+      <span class="stat-label">Souls:</span>
+      <!-- Souls value with specific styling -->
+      <span class="stat-value souls">{{ item.souls }}</span>
+    </div>
+    <div class="stat">
+      <span class="stat-label">Rarity:</span>
+      <!-- Rarity value with rarity-based styling -->
+      <span class="stat-value" [class]="getRarityClass(item.rarity)">
+        {{ item.rarity | titlecase }}
+      </span>
+    </div>
+  </div>
+
+  <!-- Item description -->
+  <div class="item-description">
+    {{ item.description }}
+  </div>
+
+  <div class="item-actions">
+    <!-- Buttons for viewing, editing, and deleting the item -->
+    <p-button
+      icon="pi pi-eye"
+      (onClick)="viewDetails.emit(item)"
+      class="p-button-text action-btn"
+      pTooltip="View Details"
+    >
+    </p-button>
+    <p-button
+      icon="pi pi-pencil"
+      (onClick)="editItem.emit(item)"
+      class="p-button-text action-btn"
+      pTooltip="Edit Item"
+    >
+    </p-button>
+    <p-button
+      icon="pi pi-trash"
+      (onClick)="deleteItem.emit(item)"
+      class="p-button-text p-button-danger action-btn"
+      pTooltip="Delete Item"
+    >
+    </p-button>
+  </div>
+</div>

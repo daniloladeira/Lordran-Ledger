@@ -1,0 +1,86 @@
+/* src/app/pages/inventory-page/inventory-page.component.scss */
+/* Estilos para a página de inventário, sem sobrescrever componentes PrimeNG */
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2.5rem;
+  padding: 1.2rem 1.5rem;
+  background-color: var(--color-secondary-background);
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra aprimorada */
+  border: 1px solid var(--color-border-subtle);
+
+  /* O p-button dentro do add-button usará os estilos padrão do PrimeNG.
+     Removi qualquer sobrescrita de cor/fundo aqui para PrimeNG. */
+  .add-button .p-button {
+    font-weight: 600; /* Pode ajustar para combinar com a fonte principal do seu app */
+    padding: 0.8rem 1.8rem; /* Ajustar preenchimento */
+    border-radius: 8px; /* Ajustar border-radius */
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra suave para o botão */
+
+    &:hover {
+      transform: translateY(-2px); /* Efeito de elevação */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+
+.inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  padding-bottom: 2.5rem;
+  justify-content: center;
+}
+
+.no-items-message {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 1.3rem;
+  padding: 4rem 0;
+  background-color: var(--color-secondary-background);
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 1px dashed var(--color-border-subtle);
+}
+
+/* Ajustes responsivos para telas menores */
+@media (max-width: 768px) {
+  .inventory-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    padding: 0 1rem;
+    gap: 1.5rem;
+  }
+
+  .toolbar {
+    padding: 1rem 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .no-items-message {
+    padding: 3rem 1rem;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .inventory-grid {
+    grid-template-columns: 1fr;
+    padding: 0 0.8rem;
+    gap: 1.2rem;
+  }
+
+  .toolbar {
+    padding: 0.8rem 1rem;
+    .add-button .p-button {
+      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
+    }
+  }
+  .no-items-message {
+    padding: 2rem 0.8rem;
+    font-size: 1rem;
+  }
+}
