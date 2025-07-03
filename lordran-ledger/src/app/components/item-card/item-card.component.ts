@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CardModule } from 'primeng/card';
-import { ButtonModule } from 'primeng/button';
+import { Card } from 'primeng/card';
+import { Button } from 'primeng/button';
 
 @Component({
   selector: 'app-item-card',
   standalone: true,
-  imports: [CommonModule, CardModule, ButtonModule],
+  imports: [CommonModule, Card, Button],
   template: `
     <p-card
       [style]="{ width: '100%', overflow: 'hidden' }"
@@ -24,7 +24,7 @@ import { ButtonModule } from 'primeng/button';
         {{ item.name }}
       </ng-template>
 
-      <ng-template class="title-text" pTemplate="subtitle">
+      <ng-template pTemplate="subtitle">
         {{ item.type | titlecase }} • {{ item.rarity | titlecase }}
       </ng-template>
 

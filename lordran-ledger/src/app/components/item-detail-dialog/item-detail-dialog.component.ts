@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DialogModule } from 'primeng/dialog';
-import { ButtonModule } from 'primeng/button';
+import { Dialog } from 'primeng/dialog';
+import { Button } from 'primeng/button';
 
 @Component({
   selector: 'app-item-detail-dialog',
   standalone: true,
-  imports: [CommonModule, DialogModule, ButtonModule],
+  imports: [CommonModule, Dialog, Button],
   template: `
     <p-dialog
       [(visible)]="displayDetailDialog"
@@ -62,8 +62,8 @@ import { ButtonModule } from 'primeng/button';
           label="Close"
           icon="pi pi-times"
           (onClick)="onClose()"
-          severity="secondary">
-        </p-button>
+          severity="secondary"
+        ></p-button>
       </ng-template>
     </p-dialog>
   `,
