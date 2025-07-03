@@ -1,0 +1,49 @@
+// .devcontainer/devcontainer.json
+{
+  "name": "Angular 16 Development Environment", // Nome mais específico para o ambiente
+
+  // Usar uma imagem Docker que contenha Node.js 20 (compatível com Angular 16 e LTS)
+  // 'mcr.microsoft.com/devcontainers/typescript:0-20' usa Node.js 20 e já inclui TypeScript.
+  "image": "mcr.microsoft.com/devcontainers/typescript:0-20",
+
+  // Recursos a adicionar ao contêiner (ex: Git, se não estiver na imagem base)
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {
+      "version": "latest" // Garante que o Git esteja disponível no contêiner
+    }
+    // Outros recursos como Docker-in-Docker podem ser adicionados aqui se precisar
+    // "ghcr.io/devcontainers/features/docker-in-docker:2": {
+    //   "version": "latest"
+    // }
+  },
+
+  // Mapear a porta do servidor de desenvolvimento Angular para sua máquina local (4200 é o padrão)
+  "forwardPorts": [4200],
+
+  // Comandos para rodar APÓS o contêiner ser criado e o código montado
+  // 1. Instala o Angular CLI na versão 16 globalmente
+  // 2. Roda 'npm install' para instalar as dependências do seu projeto Angular
+  "postCreateCommand": "npm install -g @angular/cli@16 && npm install",
+
+  // Personalizações específicas do VS Code DENTRO do contêiner
+  "customizations": {
+    "vscode": {
+      "settings": {
+        // Configurações do editor (ex: formatar ao salvar)
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint" // Define ESLint como formatador padrão
+      },
+      // Extensões recomendadas para desenvolvimento Angular que serão instaladas no contêiner
+      "extensions": [
+        "angular.angular-language-service",   // Essencial para suporte a Angular
+        "esbenp.prettier-vscode",             // Formatador de código popular
+        "dbaeumer.vscode-eslint",             // Para linting (se você usa ESLint)
+        "ms-azuretools.vscode-docker"         // Útil se você trabalhar com Dockerfiles dentro do projeto
+      ]
+    }
+  },
+
+  // Conectar-se como um usuário não-root (geralmente 'node' para imagens Node.js)
+  // Isso é mais seguro e a imagem 'typescript:0-20' já configura um usuário 'node' por padrão.
+  "remoteUser": "node"
+}

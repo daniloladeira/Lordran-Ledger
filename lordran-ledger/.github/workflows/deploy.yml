@@ -1,0 +1,57 @@
+name: Deploy Angular to GitHub Pages
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Source code checkout
+        uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+
+      - name: Node install
+        uses: actions/setup-node@v4.4.0
+        with:
+          node-version: '22'
+
+      - name: Dependencies install
+        run: npm install
+
+      - name: Prettier run
+        run: npx prettier . --check
+
+      - name: Jscpd run
+        run: npm run check-duplication
+
+      - name: Jscpd upload artifacts
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: jscpd
+          path: |
+            report/jscpd-report.json
+            report/html
+
+      - name: ESLint run
+        run: npm run lint
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v5.2.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Build project
+        run: npm run build -- --configuration=production --base-href=/account-frontend/
+
+      - name: Deploy on GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4.7.3
+        with:
+          branch: gh-pages
+          folder: dist/browser
+          token: ${{ secrets.GITHUB_TOKEN }}
+          clean: true
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && github.repository == 'persapiens-classes/account-frontend' }}

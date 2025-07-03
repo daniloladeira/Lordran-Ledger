@@ -1,39 +1,79 @@
-// shared/components/item-card/item-card.component.ts
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Item } from '../../models/item.model';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-item-card',
-  templateUrl: './item-card.component.html',
+  standalone: true,
+  imports: [CommonModule, CardModule, ButtonModule],
+  template: `
+    <p-card
+      [style]="{ width: '100%', overflow: 'hidden' }"
+      styleClass="item-card"
+    >
+      <ng-template pTemplate="header">
+        <img
+          [src]="item.imageUrl"
+          alt="Item Image"
+          class="card-image"
+        />
+      </ng-template>
+
+      <ng-template pTemplate="title">
+        {{ item.name }}
+      </ng-template>
+
+      <ng-template class="title-text" pTemplate="subtitle">
+        {{ item.type | titlecase }} • {{ item.rarity | titlecase }}
+      </ng-template>
+
+      <ng-template pTemplate="content">
+        <p class="card-description">
+          {{ item.description }}
+        </p>
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+        <div class="btn-container">
+          <p-button
+            icon="pi pi-eye"
+            label="View"
+            severity="secondary"
+            [outlined]="true"
+            class="card-button"
+            (onClick)="viewDetails.emit(item)"
+          ></p-button>
+          <p-button
+            icon="pi pi-pencil"
+            label="Edit"
+            severity="success"
+            class="card-button"
+            (onClick)="editItem.emit(item)"
+          ></p-button>
+          <p-button
+            icon="pi pi-trash"
+            label="Delete"
+            severity="danger"
+            class="card-button"
+            (onClick)="deleteItem.emit(item)"
+          ></p-button>
+        </div>
+      </ng-template>
+    </p-card>
+  `,
   styleUrls: ['./item-card.component.scss']
 })
 export class ItemCardComponent {
-  // Input property to receive the item data from the parent component
-  @Input() item!: Item; // Non-null assertion, assumes parent will always pass an item
+  @Input() item!: {
+    name: string;
+    type: string;
+    rarity: string;
+    description: string;
+    imageUrl: string;
+  };
 
-  // Output events to notify the parent component of user actions
-  @Output() viewDetails = new EventEmitter<Item>();
-  @Output() editItem = new EventEmitter<Item>();
-  @Output() deleteItem = new EventEmitter<Item>();
-
-  /**
-   * Determines the appropriate PrimeIcons class based on the item's type.
-   * @param type The type of the item (e.g., 'weapon', 'armor').
-   * @returns The PrimeIcons class string.
-   */
-  getTypeIcon(type: string): string {
-    const icons: { [key: string]: string } = {
-    };
-    // Returns the corresponding icon or a default box icon if not found
-    return icons[type.toLowerCase()] || 'pi pi-box';
-  }
-
-  /**
-   * Generates a CSS class based on the item's rarity for styling.
-   * @param rarity The rarity of the item (e.g., 'common', 'rare').
-   * @returns A CSS class string (e.g., 'rarity-common').
-   */
-  getRarityClass(rarity: string): string {
-    return `rarity-${rarity.toLowerCase()}`;
-  }
+  @Output() viewDetails = new EventEmitter<any>();
+  @Output() editItem = new EventEmitter<any>();
+  @Output() deleteItem = new EventEmitter<any>();
 }
