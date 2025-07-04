@@ -1,0 +1,59 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+body {
+  background-color: #F2F0EF;
+}
+
+.main-content {
+  padding: 2rem;
+  overflow-y: hidden;
+  background-color: #F2F0EF;
+}
+
+/* Cabeçalho com título + botão lado a lado */
+.header-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap; // permite quebra no mobile
+  margin-bottom: 2rem;
+  gap: 1rem;
+
+  .text-group {
+    flex: 1;
+    min-width: 250px;
+
+    .title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--p-primary-color);
+      margin: 0;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: var(--p-text-color-secondary);
+      margin-top: 0.25rem;
+    }
+  }
+
+  .add-button {
+    white-space: nowrap;
+    padding: 0.75rem 1.5rem;
+  }
+}
+
+/* Grid responsivo de cards */
+.cards-grid-container {
+  display: grid;
+  grid-template-columns: 2fr 2fr 2fr;
+  gap: 2rem;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
