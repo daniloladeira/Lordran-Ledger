@@ -1,37 +1,37 @@
 :host ::ng-deep .item-card .p-card-title {
-  font-family: var(--font-special-title); /* Aplica a fonte especial ao título principal do card */
-  /* Você pode adicionar outros estilos aqui, como: */
-  /* font-size: 1.8rem; */
-  /* color: var(--color-text-primary); */
+  font-family: var(--font-special-title);
 }
 
 .btn-container {
   display: flex;
   justify-content: space-between;
-  margin-top: auto; /* Garante que os botões fiquem na parte inferior do card */
+  margin-top: auto;
 }
 
-/* Se você ainda quiser o 'title-text' para o subtítulo, mantenha esta regra: */
 .title-text {
   font-family: 'MedievalSharp';
 }
 
 :host ::ng-deep .item-card .p-card-header {
-  height: 200px; /* Altere este valor para o tamanho fixo desejado, por exemplo, 250px, 180px */
-  width: 100%; /* Garante que a div ocupe toda a largura disponível */
+  height: 200px;
+  width: 100%;
   overflow: hidden;
-  display: flex; /* Para centralizar o conteúdo (imagem ou placeholder) */
-  align-items: center; /* Centraliza verticalmente */
-  justify-content: center; /* Centraliza horizontalmente */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
 }
 
-:host ::ng-deep .item-card .p-card-header img {
-  width: 100%;
-  height: 100%; /* A imagem preenche a altura fixa do seu contêiner */
-  object-fit: cover; /* Recorta a imagem para preencher o espaço sem distorcer */
-  display: block;
+.p-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* --- FIM DOS ESTILOS DE ALTURA FIXA DA IMAGEM --- */
+:host ::ng-deep .item-card .p-card-header img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}

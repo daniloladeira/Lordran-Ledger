@@ -26,6 +26,13 @@
         (editItem)="onEditItem(item)"
         (deleteItem)="onDeleteItem(item)"
       ></app-item-card>
+        <app-weapon-card
+          *ngFor="let weapon of weapons"
+          [weapon]="weapon"
+          (view)="onViewWeapon($event)"
+          (edit)="onEditWeapon($event)"
+          (delete)="onDeleteWeapon($event)"
+        ></app-weapon-card>
     </section>
   </main>
 
