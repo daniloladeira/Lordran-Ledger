@@ -7,27 +7,23 @@ import { Weapon } from '../../models/weapon.model';
 @Component({
   selector: 'app-weapon-card',
   standalone: true,
+  styleUrls: ['./weapons.component.scss'],
   imports: [CommonModule, CardModule, ButtonModule],
   template: `
-    <p-card
-      [style]="{ width: '25rem', overflow: 'hidden' }"
-      class="weapon-card"
-    >
-      <ng-template #header>
+    <p-card [style]="{ width: '25rem', overflow: 'hidden', padding: '15px' }" class="weapon-card">
+      <ng-template pTemplate="header">
         <img
-          [src]="
-            weapon.image || 'https://via.placeholder.com/400x200?text=No+Image'
-          "
+          [src]="weapon.image || 'https://via.placeholder.com/400x200?text=No+Image'"
           [alt]="weapon.name"
           class="weapon-image"
         />
       </ng-template>
 
-      <ng-template #title>
+      <ng-template pTemplate="title">
         {{ weapon.name }}
       </ng-template>
 
-      <ng-template #subtitle>
+      <ng-template pTemplate="subtitle">
         {{ weapon.type | titlecase }} • Peso: {{ weapon.weight }}
       </ng-template>
 
@@ -61,10 +57,11 @@ import { Weapon } from '../../models/weapon.model';
         </ul>
       </div>
 
-      <ng-template #footer>
+      <ng-template pTemplate="footer">
         <div class="weapon-actions">
           <button
             pButton
+            severity="secondary"
             type="button"
             icon="pi pi-eye"
             label="Ver"
@@ -96,3 +93,4 @@ export class WeaponCardComponent {
   @Output() edit = new EventEmitter<Weapon>();
   @Output() delete = new EventEmitter<Weapon>();
 }
+

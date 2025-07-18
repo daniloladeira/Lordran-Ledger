@@ -1,23 +1,94 @@
-import { Component } from '@angular/core';
-
-export interface Spell {
-  id: number;
-  name: string;
-  description: string;
-  image: string;
-  category: string;
-  type: string;
-}
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { Spell } from '../../models/spell.model';
 
 @Component({
-  selector: 'app-spells',
+  selector: 'app-spell-card',
   standalone: true,
-  imports: [],
+  styleUrls: ['./spells.component.scss'],
+  imports: [CommonModule, CardModule, ButtonModule],
   template: `
-    
-  `,
-  styleUrl: './spells.scss'
-})
-export class Spells {
+    <p-card [style]="{ width: '25rem', overflow: 'hidden', padding: '15px' }" class="spell-card">
+      <ng-template pTemplate="header">
+        <img
+          [src]="spell.image || 'https://via.placeholder.com/400x200?text=No+Image'"
+          [alt]="spell.name"
+          class="spell-image"
+        />
+      </ng-template>
 
+      <ng-template pTemplate="title">
+        {{ spell.name }}
+      </ng-template>
+
+      <ng-template pTemplate="subtitle">
+        {{ spell.school | titlecase }} • Slots: {{ spell.slots_required }} • Usos: {{ spell.uses }}
+      </ng-template>
+
+      <p class="spell-description">
+        {{ spell.description }}
+      </p>
+
+      <div class="spell-section">
+        <h5>Custo</h5>
+        <ul>
+          <li>FP: {{ spell.cost_fp }}</li>
+          <li>Stamina: {{ spell.cost_stamina }}</li>
+        </ul>
+      </div>
+
+      <div class="spell-section">
+        <h5>Requisitos</h5>
+        <ul>
+          <li>Inteligência: {{ spell.intelligence_required }}</li>
+          <li>Fé: {{ spell.faith_required }}</li>
+        </ul>
+      </div>
+
+      <div class="spell-section">
+        <h5>Tipo</h5>
+        <ul>
+          <li *ngIf="spell.is_offensive">Ofensivo</li>
+          <li *ngIf="spell.is_buff">Buff</li>
+          <li *ngIf="spell.is_heal">Cura</li>
+        </ul>
+      </div>
+
+      <ng-template pTemplate="footer">
+        <div class="spell-actions">
+          <button
+            pButton
+            severity="secondary"
+            type="button"
+            icon="pi pi-eye"
+            label="Ver"
+            (click)="view.emit(spell)"
+          ></button>
+          <button
+            pButton
+            type="button"
+            icon="pi pi-pencil"
+            label="Editar"
+            (click)="edit.emit(spell)"
+          ></button>
+          <button
+            pButton
+            type="button"
+            icon="pi pi-trash"
+            label="Excluir"
+            severity="danger"
+            (click)="delete.emit(spell)"
+          ></button>
+        </div>
+      </ng-template>
+    </p-card>
+  `,
+})
+export class SpellCardComponent {
+  @Input() spell!: Spell;
+  @Output() view = new EventEmitter<Spell>();
+  @Output() edit = new EventEmitter<Spell>();
+  @Output() delete = new EventEmitter<Spell>();
 }
