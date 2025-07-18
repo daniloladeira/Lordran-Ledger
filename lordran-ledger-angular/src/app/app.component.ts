@@ -18,6 +18,8 @@ import { WeaponsService, Weapon } from './services/weapons';
 import type { Item, ItemForm } from './models/item.model';
 import { ItemService } from './services/item.service';
 
+import { RouterOutlet } from '@angular/router';
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -29,7 +31,8 @@ import { ItemService } from './services/item.service';
     ItemFormDialogComponent,
     ButtonModule,
     WeaponCardComponent,
-    ToastModule
+    ToastModule,
+    RouterOutlet
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
