@@ -1,121 +1,98 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Para *ngIf, pipes como titlecase, currency
-import { DialogModule } from 'primeng/dialog'; // Para p-dialog
-import { ButtonModule } from 'primeng/button'; // Para p-button
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common'; // para *ngIf e pipes
+import { DialogModule } from 'primeng/dialog'; // p-dialog
+import { ButtonModule } from 'primeng/button'; // p-button
 
-// Importe a interface Item
-import type { Item } from '../../models/item.model';
+import type { Weapon } from '../../models/weapon.model';
 
 @Component({
-  selector: 'app-item-detail-dialog', // Seletor para usar este diálogo
+  selector: 'app-item-detail-dialog',
   standalone: true,
-  imports: [
-    CommonModule,
-    DialogModule, // Módulo do p-dialog
-    ButtonModule  // Módulo do p-button
-  ],
+  imports: [CommonModule, DialogModule, ButtonModule],
   template: `
     <p-dialog
       [(visible)]="displayDetailDialog"
-      header="Item Details"
+      header="Detalhes da Arma"
       [modal]="true"
       [closable]="true"
       [style]="{ width: '600px' }"
-      styleClass="detail-dialog"
-      (onHide)="onClose()"
       *ngIf="selectedItem"
+      (onHide)="onClose()"
     >
       <div class="detail-content">
         <div class="detail-header">
-          <!-- Imagem do item -->
           <img
-            [src]="selectedItem.imageUrl || 'https://via.placeholder.com/100x100?text=No Image'"
-            alt="{{ selectedItem.name || 'Item Image' }}"
+            [src]="selectedItem.image || 'https://via.placeholder.com/100x100?text=No Image'"
+            [alt]="selectedItem.name"
             class="detail-image"
-            *ngIf="selectedItem.imageUrl"
-          >
+          />
           <div>
-            <h2 class="detail-name" [class]="getRarityClass(selectedItem.rarity)">
-              {{ selectedItem.name }}
-            </h2>
-            <span class="detail-type">{{ selectedItem.type | titlecase }}</span>
-          </div>
-        </div>
-
-        <div class="detail-stats">
-          <div class="detail-stat">
-            <span class="detail-label">ID:</span>
-            <span class="detail-value">{{ selectedItem.id }}</span>
-          </div>
-          <div class="detail-stat">
-            <span class="detail-label">Value:</span>
-            <span class="detail-value">{{ selectedItem.value | currency : 'USD' : 'symbol' : '1.2-2' }}</span>
-          </div>
-          <div class="detail-stat">
-            <span class="detail-label">Souls:</span>
-            <span class="detail-value souls">{{ selectedItem.souls }}</span>
-          </div>
-          <div class="detail-stat">
-            <span class="detail-label">Rarity:</span>
-            <span class="detail-value" [class]="getRarityClass(selectedItem.rarity)">
-              {{ selectedItem.rarity | titlecase }}
-            </span>
-          </div>
-          <div class="detail-stat">
-            <span class="detail-label">Status:</span>
-            <span class="detail-value" [class]="selectedItem.equipped ? 'equipped' : 'unequipped'">
-              {{ selectedItem.equipped ? 'Equipped' : 'Not Equipped' }}
-            </span>
+            <h2>{{ selectedItem.name }}</h2>
+            <span>{{ selectedItem.type | titlecase }}</span>
           </div>
         </div>
 
         <div class="detail-description">
-          <h4>Description</h4>
-          <p>{{ selectedItem.description || 'No description available.' }}</p>
+          <h4>Descrição</h4>
+          <p>{{ selectedItem.description }}</p>
         </div>
+
+        <h4>Dano</h4>
+        <ul>
+          <li>Físico: {{ selectedItem.physical_damage }}</li>
+          <li>Mágico: {{ selectedItem.magic_damage }}</li>
+          <li>Fogo: {{ selectedItem.fire_damage }}</li>
+          <li>Raio: {{ selectedItem.lightning_damage }}</li>
+          <li>Crítico: {{ selectedItem.critical }}</li>
+        </ul>
+
+        <p><strong>Durabilidade:</strong> {{ selectedItem.durability }}</p>
+        <p><strong>Peso:</strong> {{ selectedItem.weight }}</p>
+
+        <h4>Atributos Requeridos</h4>
+        <ul>
+          <li>Força: {{ selectedItem.strength_required }}</li>
+          <li>Destreza: {{ selectedItem.dexterity_required }}</li>
+          <li>Inteligência: {{ selectedItem.intelligence_required }}</li>
+          <li>Fé: {{ selectedItem.faith_required }}</li>
+        </ul>
       </div>
 
       <ng-template pTemplate="footer">
-        <p-button
-          label="Close"
-          icon="pi pi-times"
-          (onClick)="onClose()"
-          severity="secondary" >
-        </p-button>
+        <button pButton label="Fechar" icon="pi pi-times" (click)="onClose()"></button>
       </ng-template>
     </p-dialog>
   `,
-  styleUrl: './item-detail-dialog.component.scss' // Aponta para o arquivo de estilos
+  styles: [`
+    .detail-header {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .detail-image {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+    }
+  `]
 })
-export class ItemDetailDialogComponent implements OnInit {
-  @Input() selectedItem: Item | null = null; // Recebe o item a ser exibido
-  @Input() displayDetailDialog: boolean = false; // Controla a visibilidade do diálogo
-
-  // Mude o nome do Output de 'dialogClosed' para 'displayDetailDialogChange'
-  @Output() displayDetailDialogChange = new EventEmitter<boolean>(); // Para two-way binding
-
-  ngOnInit() {
-    // console.log('Dialog Init - Item:', this.selectedItem); // Para depuração
-  }
+export class ItemDetailDialogComponent {
+  @Input() selectedItem: Weapon | null = null;
+  @Input() displayDetailDialog = false;
+  @Output() displayDetailDialogChange = new EventEmitter<boolean>();
 
   onClose() {
-    this.displayDetailDialog = false; // Fecha o diálogo localmente
-    this.displayDetailDialogChange.emit(this.displayDetailDialog); // Notifica o componente pai
-  }
-
-  // Método para aplicar classes de CSS baseadas na raridade
-  getRarityClass(rarity: Item['rarity']): string {
-    switch (rarity) {
-      case 'common':
-        return 'rarity-common';
-      case 'rare':
-        return 'rarity-rare';
-      case 'legendary':
-        return 'rarity-legendary';
-      case 'unique':
-        return 'rarity-unique';
-      default:
-        return '';
-    }
+    this.displayDetailDialog = false;
+    this.displayDetailDialogChange.emit(false);
   }
 }

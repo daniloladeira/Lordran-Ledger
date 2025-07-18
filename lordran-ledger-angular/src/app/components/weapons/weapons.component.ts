@@ -2,101 +2,93 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
-
-export interface Weapon {
-  id: string;
-  name: string;
-  description: string;
-  image: string;
-  category: string;
-  weight: number;
-  attack: { name: string; amount: number }[];
-  defence: { name: string; amount: number }[];
-  scalesWith: { name: string; scaling: string }[];
-  requiredAttributes: { name: string; amount: number }[];
-}
+import { Weapon } from '../../models/weapon.model';
 
 @Component({
   selector: 'app-weapon-card',
   standalone: true,
   imports: [CommonModule, CardModule, ButtonModule],
   template: `
-    <p-card [style]="{ width: '100%', overflow: 'hidden' }" styleClass="weapon-card">
-      <ng-template pTemplate="header">
+    <p-card
+      [style]="{ width: '25rem', overflow: 'hidden' }"
+      class="weapon-card"
+    >
+      <ng-template #header>
         <img
-          [src]="weapon.image || 'https://via.placeholder.com/400x200?text=No Image'"
+          [src]="
+            weapon.image || 'https://via.placeholder.com/400x200?text=No+Image'
+          "
           [alt]="weapon.name"
-          class="card-image"
+          class="weapon-image"
         />
       </ng-template>
 
-      <ng-template pTemplate="title">
+      <ng-template #title>
         {{ weapon.name }}
       </ng-template>
 
-      <ng-template pTemplate="subtitle">
-        {{ weapon.category }} • Peso: {{ weapon.weight }}
+      <ng-template #subtitle>
+        {{ weapon.type | titlecase }} • Peso: {{ weapon.weight }}
       </ng-template>
 
-      <ng-template pTemplate="content">
-        <p>{{ weapon.description }}</p>
+      <p class="weapon-description">
+        {{ weapon.description }}
+      </p>
 
-        <h5>Ataques:</h5>
-        <ul class="specs-lista">
-          <li *ngFor="let atk of weapon.attack">
-            {{ atk.name }}: {{ atk.amount }}
-          </li>
+      <div class="weapon-section">
+        <h5>Dano</h5>
+        <ul>
+          <li>Físico: {{ weapon.physical_damage }}</li>
+          <li>Mágico: {{ weapon.magic_damage }}</li>
+          <li>Fogo: {{ weapon.fire_damage }}</li>
+          <li>Raio: {{ weapon.lightning_damage }}</li>
+          <li>Crítico: {{ weapon.critical }}</li>
         </ul>
+      </div>
 
-        <h5>Defesas:</h5>
-        <ul class="specs-lista">
-          <li *ngFor="let def of weapon.defence">
-            {{ def.name }}: {{ def.amount }}
-          </li>
+      <div class="weapon-section">
+        <h5>Durabilidade</h5>
+        <p>{{ weapon.durability }}</p>
+      </div>
+
+      <div class="weapon-section">
+        <h5>Atributos Requeridos</h5>
+        <ul>
+          <li>Força: {{ weapon.strength_required }}</li>
+          <li>Destreza: {{ weapon.dexterity_required }}</li>
+          <li>Inteligência: {{ weapon.intelligence_required }}</li>
+          <li>Fé: {{ weapon.faith_required }}</li>
         </ul>
+      </div>
 
-        <h5>Escalas com atributos:</h5>
-        <ul class="specs-lista">
-          <li *ngFor="let scale of weapon.scalesWith">
-            {{ scale.name }}: {{ scale.scaling }}
-          </li>
-        </ul>
-
-        <h5>Atributos requeridos:</h5>
-        <ul class="specs-lista">
-          <li *ngFor="let req of weapon.requiredAttributes">
-            {{ req.name }}: {{ req.amount }}
-          </li>
-        </ul>
-      </ng-template>
-
-      <ng-template pTemplate="footer">
-        <div class="btn-container">
-          <button pButton type="button" icon="pi pi-eye" label="Ver" (click)="view.emit(weapon)"></button>
-          <button pButton type="button" icon="pi pi-pencil" label="Editar" (click)="edit.emit(weapon)"></button>
-          <button pButton type="button" icon="pi pi-trash" label="Excluir" severity="danger" (click)="delete.emit(weapon)"></button>
+      <ng-template #footer>
+        <div class="weapon-actions">
+          <button
+            pButton
+            type="button"
+            icon="pi pi-eye"
+            label="Ver"
+            (click)="view.emit(weapon)"
+          ></button>
+          <button
+            pButton
+            type="button"
+            icon="pi pi-pencil"
+            label="Editar"
+            (click)="edit.emit(weapon)"
+          ></button>
+          <button
+            pButton
+            type="button"
+            icon="pi pi-trash"
+            label="Excluir"
+            severity="danger"
+            (click)="delete.emit(weapon)"
+          ></button>
         </div>
       </ng-template>
     </p-card>
   `,
-  styles: [`
-    .card-image {
-      height: 200px;
-      object-fit: cover;
-    }
-    
-    .specs-lista {
-      display: flex;
-      gap: 0.5rem;
-      margin-top: 0.5rem;
-    }
-
-    .btn-container {
-      display: flex;
-      justify-content: space-between;
-      gap: 0.5rem;
-    }
-  `]
 })
 export class WeaponCardComponent {
   @Input() weapon!: Weapon;
