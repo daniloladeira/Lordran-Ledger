@@ -1,0 +1,35 @@
+services:
+  db:
+    image: hibitdev/sqlite:latest
+    container_name: sqlite
+    restart: always
+    volumes:
+      - ./sqlite:/db
+    command: ["tail", "-f", "/dev/null"]
+
+  backend:
+    build:
+      context: ./lordran
+      dockerfile: Dockerfile
+    container_name: lordran-backend
+    volumes:
+      - ./api:/lordran
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    command: >
+      sh -c "python manage.py migrate && exec python manage.py runserver 0.0.0.0:8000"
+
+  frontend:
+    build:
+      context: ./lordran-ledger-angular
+      dockerfile: Dockerfile
+    restart: always
+    container_name: lordran-frontend
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./lordran-ledger-angular:/app
+    working_dir: /app
+    command: sh -c "npm install && ng serve --host 0.0.0.0"
