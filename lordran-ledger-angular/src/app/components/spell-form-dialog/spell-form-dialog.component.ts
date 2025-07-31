@@ -60,10 +60,10 @@ import type { Spell } from '../../models/spell.model';
               id="school"
               [(ngModel)]="spellFormModel.school"
               name="school"
-              class="p-inputtext p-component"
+              class="p-inputtext p-component p-element"
               required
             >
-              <option [ngValue]="null" disabled selected>
+              <option value="" disabled>
                 Selecione a escola
               </option>
               <option *ngFor="let option of schoolOptions" [value]="option.value">
@@ -73,46 +73,11 @@ import type { Spell } from '../../models/spell.model';
           </div>
 
           <div class="p-field p-col-12 p-md-6">
-            <label for="slots_required">Slots Necessários</label>
-            <p-inputNumber
-              id="slots_required"
-              [(ngModel)]="spellFormModel.slots_required"
-              name="slots_required"
-              [min]="1"
-              [mode]="'decimal'"
-              required
-            ></p-inputNumber>
-          </div>
-
-          <div class="p-field p-col-12 p-md-6">
-            <label for="uses">Usos</label>
-            <p-inputNumber
-              id="uses"
-              [(ngModel)]="spellFormModel.uses"
-              name="uses"
-              [min]="1"
-              [mode]="'decimal'"
-              required
-            ></p-inputNumber>
-          </div>
-
-          <div class="p-field p-col-12 p-md-6">
             <label for="cost_fp">Custo FP</label>
             <p-inputNumber
               id="cost_fp"
               [(ngModel)]="spellFormModel.cost_fp"
               name="cost_fp"
-              [min]="0"
-              [mode]="'decimal'"
-            ></p-inputNumber>
-          </div>
-
-          <div class="p-field p-col-12 p-md-6">
-            <label for="cost_stamina">Custo Stamina</label>
-            <p-inputNumber
-              id="cost_stamina"
-              [(ngModel)]="spellFormModel.cost_stamina"
-              name="cost_stamina"
               [min]="0"
               [mode]="'decimal'"
             ></p-inputNumber>
@@ -128,16 +93,6 @@ import type { Spell } from '../../models/spell.model';
             ></p-inputNumber>
           </div>
 
-          <div class="p-field p-col-12 p-md-6">
-            <label for="faith_required">Fé Requerida</label>
-            <p-inputNumber
-              id="faith_required"
-              [(ngModel)]="spellFormModel.faith_required"
-              name="faith_required"
-              [min]="0"
-            ></p-inputNumber>
-          </div>
-
           <div class="p-field p-col-12">
             <label for="description">Descrição</label>
             <textarea
@@ -146,37 +101,21 @@ import type { Spell } from '../../models/spell.model';
               pInputTextarea
               [(ngModel)]="spellFormModel.description"
               name="description"
+              class="p-inputtextarea p-component p-element"
+              placeholder="Descrição do feitiço..."
             ></textarea>
           </div>
 
-          <div class="p-field p-col-12 p-md-4">
-            <p-checkbox
-              inputId="is_offensive"
-              [(ngModel)]="spellFormModel.is_offensive"
-              name="is_offensive"
-              binary="true"
-            ></p-checkbox>
-            <label for="is_offensive">Ofensivo</label>
-          </div>
-
-          <div class="p-field p-col-12 p-md-4">
-            <p-checkbox
-              inputId="is_buff"
-              [(ngModel)]="spellFormModel.is_buff"
-              name="is_buff"
-              binary="true"
-            ></p-checkbox>
-            <label for="is_buff">Buff</label>
-          </div>
-
-          <div class="p-field p-col-12 p-md-4">
-            <p-checkbox
-              inputId="is_heal"
-              [(ngModel)]="spellFormModel.is_heal"
-              name="is_heal"
-              binary="true"
-            ></p-checkbox>
-            <label for="is_heal">Cura</label>
+          <div class="p-field p-col-12">
+            <div class="p-field-checkbox">
+              <p-checkbox
+                inputId="is_offensive"
+                [(ngModel)]="spellFormModel.is_offensive"
+                name="is_offensive"
+                binary="true"
+              ></p-checkbox>
+              <label for="is_offensive">Feitiço Ofensivo</label>
+            </div>
           </div>
 
         </div>
@@ -199,7 +138,86 @@ import type { Spell } from '../../models/spell.model';
       </form>
     </p-dialog>
   `,
-  styles: [``],
+  styles: [`
+    .p-fluid .p-field {
+      margin-bottom: 1.5rem;
+    }
+
+    .p-field label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--text-color);
+      font-size: 0.875rem;
+    }
+
+    .p-formgrid {
+      display: grid;
+      gap: 1rem;
+      padding: 1.5rem;
+    }
+
+    .p-col-12 {
+      grid-column: span 12;
+    }
+
+    .p-col-6 {
+      grid-column: span 6;
+    }
+
+    @media (min-width: 768px) {
+      .p-formgrid {
+        grid-template-columns: repeat(12, 1fr);
+      }
+    }
+
+    @media (max-width: 767px) {
+      .p-formgrid {
+        grid-template-columns: 1fr;
+      }
+      
+      .p-col-6 {
+        grid-column: span 1;
+      }
+    }
+
+    .p-field-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .p-field-checkbox label {
+      margin-bottom: 0;
+      cursor: pointer;
+    }
+
+    /* Estilos específicos para select nativo */
+    select.p-inputtext {
+      padding: 0.75rem;
+      border: 1px solid var(--surface-border);
+      border-radius: 4px;
+      background: var(--surface-0);
+      color: var(--text-color);
+      font-size: 0.875rem;
+      width: 100%;
+    }
+
+    select.p-inputtext:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.2);
+      outline: none;
+    }
+
+    /* Footer styles */
+    :host ::ng-deep .p-dialog .p-dialog-footer {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: flex-end;
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--surface-border);
+    }
+  `],
 })
 export class SpellFormDialogComponent implements OnChanges {
   @Input() displayDialog = false;
@@ -240,17 +258,10 @@ export class SpellFormDialogComponent implements OnChanges {
       name: '',
       description: '',
       school: 'sorcery',
-      slots_required: 1,
-      uses: 1,
       cost_fp: 0,
-      cost_stamina: 0,
       intelligence_required: 0,
-      faith_required: 0,
       is_offensive: true,
-      is_buff: false,
-      is_heal: false,
       created_at: new Date(),
-      image: '',
     };
   }
 }

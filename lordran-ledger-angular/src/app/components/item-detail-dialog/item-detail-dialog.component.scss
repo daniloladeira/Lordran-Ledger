@@ -1,0 +1,98 @@
+.detail-content {
+  padding: 1rem;
+  background: var(--surface-0);
+  
+  .detail-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--surface-border);
+    
+    .detail-image {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--surface-border);
+    }
+    
+    h2 {
+      margin: 0;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+    }
+    
+    span {
+      color: var(--text-color-secondary);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+  }
+  
+  .detail-description {
+    margin-bottom: 1.5rem;
+    
+    h4 {
+      margin-bottom: 0.5rem;
+      color: var(--text-color);
+      font-size: 1.1rem;
+    }
+    
+    p {
+      color: var(--text-color-secondary);
+      line-height: 1.6;
+    }
+  }
+  
+  h4 {
+    margin: 1rem 0 0.5rem 0;
+    color: var(--text-color);
+    font-size: 1.1rem;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+    
+    li {
+      padding: 0.25rem 0;
+      color: var(--text-color-secondary);
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--surface-100);
+      
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+  
+  p {
+    margin: 0.5rem 0;
+    color: var(--text-color-secondary);
+    
+    strong {
+      color: var(--text-color);
+    }
+  }
+}
+
+/* Garantir que o diálogo tenha fundo adequado */
+:host ::ng-deep .p-dialog {
+  background: var(--surface-0) !important;
+  border: 1px solid var(--surface-border) !important;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-content {
+  background: var(--surface-0) !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-header {
+  background: var(--surface-0) !important;
+  border-bottom: 1px solid var(--surface-border) !important;
+}

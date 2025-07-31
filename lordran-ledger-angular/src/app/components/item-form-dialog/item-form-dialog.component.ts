@@ -82,62 +82,11 @@ import type { Weapon } from '../../models/weapon.model';
           </div>
 
           <div class="p-field p-col-12 p-md-6">
-            <label for="durability">Durabilidade</label>
-            <p-inputNumber
-              id="durability"
-              [(ngModel)]="weaponFormModel.durability"
-              name="durability"
-              [min]="0"
-              [mode]="'decimal'"
-            ></p-inputNumber>
-          </div>
-
-          <div class="p-field p-col-12 p-md-6">
             <label for="physical_damage">Dano Físico</label>
             <p-inputNumber
               id="physical_damage"
               [(ngModel)]="weaponFormModel.physical_damage"
               name="physical_damage"
-              [min]="0"
-            ></p-inputNumber>
-          </div>
-
-          <div class="p-field p-col-12 p-md-6">
-            <label for="magic_damage">Dano Mágico</label>
-            <p-inputNumber
-              id="magic_damage"
-              [(ngModel)]="weaponFormModel.magic_damage"
-              name="magic_damage"
-              [min]="0"
-            ></p-inputNumber>
-          </div>
-
-          <div class="p-field p-col-12 p-md-6">
-            <label for="fire_damage">Dano Fogo</label>
-            <p-inputNumber
-              id="fire_damage"
-              [(ngModel)]="weaponFormModel.fire_damage"
-              name="fire_damage"
-              [min]="0"
-            ></p-inputNumber>
-          </div>
-
-          <div class="p-field p-col-12 p-md-6">
-            <label for="lightning_damage">Dano Raio</label>
-            <p-inputNumber
-              id="lightning_damage"
-              [(ngModel)]="weaponFormModel.lightning_damage"
-              name="lightning_damage"
-              [min]="0"
-            ></p-inputNumber>
-          </div>
-
-          <div class="p-field p-col-12 p-md-6">
-            <label for="critical">Dano Crítico</label>
-            <p-inputNumber
-              id="critical"
-              [(ngModel)]="weaponFormModel.critical"
-              name="critical"
               [min]="0"
             ></p-inputNumber>
           </div>
@@ -158,26 +107,6 @@ import type { Weapon } from '../../models/weapon.model';
               id="dexterity_required"
               [(ngModel)]="weaponFormModel.dexterity_required"
               name="dexterity_required"
-              [min]="0"
-            ></p-inputNumber>
-          </div>
-
-          <div class="p-field p-col-12 p-md-6">
-            <label for="intelligence_required">Inteligência Requerida</label>
-            <p-inputNumber
-              id="intelligence_required"
-              [(ngModel)]="weaponFormModel.intelligence_required"
-              name="intelligence_required"
-              [min]="0"
-            ></p-inputNumber>
-          </div>
-
-          <div class="p-field p-col-12 p-md-6">
-            <label for="faith_required">Fé Requerida</label>
-            <p-inputNumber
-              id="faith_required"
-              [(ngModel)]="weaponFormModel.faith_required"
-              name="faith_required"
               [min]="0"
             ></p-inputNumber>
           </div>
@@ -264,16 +193,9 @@ export class ItemFormDialogComponent implements OnChanges {
       description: '',
       type: '',
       physical_damage: 0,
-      magic_damage: 0,
-      fire_damage: 0,
-      lightning_damage: 0,
-      critical: 100,
-      durability: 100,
-      weight: 0,
-      strength_required: 0,
-      dexterity_required: 0,
-      intelligence_required: 0,
-      faith_required: 0,
+      weight: 1.0,
+      strength_required: 10,
+      dexterity_required: 10,
       created_at: new Date(),
       image: '',
     };

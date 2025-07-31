@@ -34,27 +34,19 @@ import type { Weapon } from '../../models/weapon.model';
 
         <div class="detail-description">
           <h4>Descrição</h4>
-          <p>{{ selectedItem.description }}</p>
+          <p>{{ selectedItem.description || 'Sem descrição' }}</p>
         </div>
 
-        <h4>Dano</h4>
+        <h4>Informações</h4>
         <ul>
-          <li>Físico: {{ selectedItem.physical_damage }}</li>
-          <li>Mágico: {{ selectedItem.magic_damage }}</li>
-          <li>Fogo: {{ selectedItem.fire_damage }}</li>
-          <li>Raio: {{ selectedItem.lightning_damage }}</li>
-          <li>Crítico: {{ selectedItem.critical }}</li>
+          <li>Dano Físico: {{ selectedItem.physical_damage }}</li>
+          <li>Peso: {{ selectedItem.weight }}</li>
         </ul>
-
-        <p><strong>Durabilidade:</strong> {{ selectedItem.durability }}</p>
-        <p><strong>Peso:</strong> {{ selectedItem.weight }}</p>
 
         <h4>Atributos Requeridos</h4>
         <ul>
           <li>Força: {{ selectedItem.strength_required }}</li>
           <li>Destreza: {{ selectedItem.dexterity_required }}</li>
-          <li>Inteligência: {{ selectedItem.intelligence_required }}</li>
-          <li>Fé: {{ selectedItem.faith_required }}</li>
         </ul>
       </div>
 

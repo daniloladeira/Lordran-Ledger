@@ -4,16 +4,37 @@ from .models import Spell, Weapon
 class WeaponSerializer(serializers.ModelSerializer):
     class Meta:
         model = Weapon
-        fields = '__all__'
+        fields = [
+            'id', 'name', 'description', 'type', 'physical_damage', 'weight',
+            'image', 'strength_required', 'dexterity_required', 'created_at'
+        ]
         read_only_fields = ['created_at']
+        
+    def validate_physical_damage(self, value):
+        if value < 0:
+            raise serializers.ValidationError("Physical damage must be non-negative.")
+        return value
+        
+    def validate_weight(self, value):
+        if value <= 0:
+            raise serializers.ValidationError("Weight must be positive.")
+        return value
         
 class SpellSerializer(serializers.ModelSerializer):
     class Meta:
         model = Spell
-        fields = '__all__'
+        fields = [
+            'id', 'name', 'description', 'school', 'slots_required', 
+            'uses', 'cost_fp', 'intelligence_required', 'is_offensive', 'created_at'
+        ]
         read_only_fields = ['created_at']
         
-    def validate(self, data):
-        if data['cost_fp'] < 0 or data['cost_stamina'] < 0:
-            raise serializers.ValidationError("Focus Points and Stamina costs must be non-negative.")
-        return data
+    def validate_cost_fp(self, value):
+        if value < 0:
+            raise serializers.ValidationError("Focus Points cost must be non-negative.")
+        return value
+        
+    def validate_slots_required(self, value):
+        if value < 1:
+            raise serializers.ValidationError("Slots required must be at least 1.")
+        return value

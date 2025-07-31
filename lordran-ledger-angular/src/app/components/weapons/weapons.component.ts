@@ -13,47 +13,34 @@ import { Weapon } from '../../models/weapon.model';
     <p-card [style]="{ width: '25rem', overflow: 'hidden', padding: '15px' }" class="weapon-card">
       <ng-template pTemplate="header">
         <img
-          [src]="weapon.image || 'https://via.placeholder.com/400x200?text=No+Image'"
+          [src]="weapon.image || 'https://via.placeholder.com/400x200?text=No Image'"
           [alt]="weapon.name"
           class="weapon-image"
         />
       </ng-template>
 
       <ng-template pTemplate="title">
-        {{ weapon.name }}
-      </ng-template>
-
-      <ng-template pTemplate="subtitle">
-        {{ weapon.type | titlecase }} • Peso: {{ weapon.weight }}
+        <h4>{{ weapon.name }}</h4>
+        <span class="weapon-type">{{ weapon.type | titlecase }}</span>
       </ng-template>
 
       <p class="weapon-description">
-        {{ weapon.description }}
+        {{ weapon.description || 'Sem descrição' }}
       </p>
 
       <div class="weapon-section">
-        <h5>Dano</h5>
+        <h5>Informações</h5>
         <ul>
-          <li>Físico: {{ weapon.physical_damage }}</li>
-          <li>Mágico: {{ weapon.magic_damage }}</li>
-          <li>Fogo: {{ weapon.fire_damage }}</li>
-          <li>Raio: {{ weapon.lightning_damage }}</li>
-          <li>Crítico: {{ weapon.critical }}</li>
+          <li>Dano Físico: {{ weapon.physical_damage }}</li>
+          <li>Peso: {{ weapon.weight }}</li>
         </ul>
       </div>
 
       <div class="weapon-section">
-        <h5>Durabilidade</h5>
-        <p>{{ weapon.durability }}</p>
-      </div>
-
-      <div class="weapon-section">
-        <h5>Atributos Requeridos</h5>
+        <h5>Requisitos</h5>
         <ul>
           <li>Força: {{ weapon.strength_required }}</li>
           <li>Destreza: {{ weapon.dexterity_required }}</li>
-          <li>Inteligência: {{ weapon.intelligence_required }}</li>
-          <li>Fé: {{ weapon.faith_required }}</li>
         </ul>
       </div>
 
@@ -76,10 +63,10 @@ import { Weapon } from '../../models/weapon.model';
           ></button>
           <button
             pButton
+            severity="danger"
             type="button"
             icon="pi pi-trash"
             label="Excluir"
-            severity="danger"
             (click)="delete.emit(weapon)"
           ></button>
         </div>
@@ -93,4 +80,3 @@ export class WeaponCardComponent {
   @Output() edit = new EventEmitter<Weapon>();
   @Output() delete = new EventEmitter<Weapon>();
 }
-

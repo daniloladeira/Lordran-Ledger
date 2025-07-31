@@ -21,11 +21,6 @@ import type { Spell } from '../../models/spell.model';
     >
       <div class="detail-content">
         <div class="detail-header">
-          <img
-            [src]="selectedSpell.image || 'https://via.placeholder.com/100x100?text=No+Image'"
-            [alt]="selectedSpell.name"
-            class="detail-image"
-          />
           <div>
             <h2>{{ selectedSpell.name }}</h2>
             <span>{{ selectedSpell.school | titlecase }}</span>
@@ -39,23 +34,13 @@ import type { Spell } from '../../models/spell.model';
 
         <h4>Detalhes</h4>
         <ul>
-          <li>Slots Necessários: {{ selectedSpell.slots_required }}</li>
-          <li>Usos: {{ selectedSpell.uses }}</li>
           <li>Custo FP: {{ selectedSpell.cost_fp }}</li>
-          <li>Custo Stamina: {{ selectedSpell.cost_stamina }}</li>
         </ul>
 
-        <h4>Atributos Requeridos</h4>
+        <h4>Informações</h4>
         <ul>
-          <li>Inteligência: {{ selectedSpell.intelligence_required }}</li>
-          <li>Fé: {{ selectedSpell.faith_required }}</li>
-        </ul>
-
-        <h4>Tipo</h4>
-        <ul>
+          <li>Inteligência Requerida: {{ selectedSpell.intelligence_required }}</li>
           <li>Ofensivo: {{ selectedSpell.is_offensive ? 'Sim' : 'Não' }}</li>
-          <li>Buff: {{ selectedSpell.is_buff ? 'Sim' : 'Não' }}</li>
-          <li>Cura: {{ selectedSpell.is_heal ? 'Sim' : 'Não' }}</li>
         </ul>
       </div>
 

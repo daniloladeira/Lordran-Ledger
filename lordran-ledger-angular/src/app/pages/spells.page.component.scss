@@ -1,17 +1,162 @@
-.cards-grid-container {
-  justify-content: center;
-  display: flex;
-  gap: 4rem;
-  padding: 2rem;
-  align-items: start;
-
+.page-container {
+  padding: 1rem;
+  min-height: 100vh;
 }
 
-::ng-deep .weapon-card {
+// Toolbar customizations
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  .page-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .spells-count {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    background: var(--surface-100);
+    color: var(--text-color-secondary);
+  }
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+// Grid Styles
+.cards-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+// No Results Message
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-color-secondary);
+  
+  p {
+    margin: 1rem 0;
+    font-size: 1.1rem;
+  }
+}
+
+// Toast Styles
+:host ::ng-deep .p-toast {
+  z-index: 9999;
+}
+
+:host ::ng-deep .p-toast .p-toast-message {
+  background: var(--surface-0);
+  border: 1px solid var(--surface-border);
+  border-radius: 6px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  margin: 0 0 1rem 0;
+  min-width: 300px;
+}
+
+:host ::ng-deep .p-toast .p-toast-message.p-toast-message-success {
+  border-left: 4px solid var(--green-500);
+}
+
+:host ::ng-deep .p-toast .p-toast-message.p-toast-message-error {
+  border-left: 4px solid var(--red-500);
+}
+
+:host ::ng-deep .p-toast .p-toast-message.p-toast-message-warn {
+  border-left: 4px solid var(--yellow-500);
+}
+
+:host ::ng-deep .p-toast .p-toast-message.p-toast-message-info {
+  border-left: 4px solid var(--blue-500);
+}
+
+:host ::ng-deep .p-toast .p-toast-message .p-toast-message-content {
+  padding: 1rem;
+}
+
+:host ::ng-deep .p-toast .p-toast-message .p-toast-summary {
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 0.25rem;
+}
+
+:host ::ng-deep .p-toast .p-toast-message .p-toast-detail {
+  color: var(--text-color-secondary);
+  font-size: 0.875rem;
+}
+
+:host ::ng-deep .p-toast .p-toast-message .p-toast-icon-close {
+  color: var(--text-color-secondary);
+  background: transparent;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+:host ::ng-deep .p-toast .p-toast-message .p-toast-icon-close:hover {
+  background: var(--surface-100);
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .page-container {
+    padding: 0.5rem;
+  }
+
+  :host ::ng-deep .p-toolbar {
+    .toolbar-left {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+
+      .page-title {
+        font-size: 1.25rem;
+      }
+    }
+
+    .search-container .search-input {
+      width: 200px;
+    }
+
+    .toolbar-actions {
+      flex-direction: column;
+      gap: 0.5rem;
+
+      .add-button {
+        width: 100%;
+      }
+    }
+  }
+
+  .cards-grid-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+}
+
+// Spell Card Styles
+::ng-deep .spell-card {
   border-radius: 1rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   color: #ffffff;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  }
 
   .card-image {
     width: 100%;

@@ -1,17 +1,113 @@
-.cards-grid-container {
-  justify-content: center;
-  display: flex;
-  gap: 4rem;
-  padding: 2rem;
-  align-items: start;
-
+.page-container {
+  padding: 1rem;
+  min-height: 100vh;
 }
 
+// Toolbar customizations
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  .page-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .weapons-count {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    background: var(--surface-100);
+    color: var(--text-color-secondary);
+  }
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+// Grid Styles
+.cards-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem 0;
+
+  &:empty::before {
+    content: 'Nenhuma arma encontrada';
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--text-color-secondary);
+    font-size: 1.2rem;
+    padding: 3rem;
+  }
+}
+
+// No Results Message
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-color-secondary);
+  
+  p {
+    margin: 1rem 0;
+    font-size: 1.1rem;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .page-container {
+    padding: 0.5rem;
+  }
+
+  :host ::ng-deep .p-toolbar {
+    .toolbar-left {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+
+      .page-title {
+        font-size: 1.25rem;
+      }
+    }
+
+    .search-container .search-input {
+      width: 200px;
+    }
+
+    .toolbar-actions {
+      flex-direction: column;
+      gap: 0.5rem;
+
+      .add-button {
+        width: 100%;
+      }
+    }
+  }
+
+  .cards-grid-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+}
+
+// Weapon Card Styles
 ::ng-deep .weapon-card {
   border-radius: 1rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   color: #ffffff;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  }
 
   .card-image {
     width: 100%;

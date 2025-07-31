@@ -13,7 +13,7 @@ import { Spell } from '../../models/spell.model';
     <p-card [style]="{ width: '25rem', overflow: 'hidden', padding: '15px' }" class="spell-card">
       <ng-template pTemplate="header">
         <img
-          [src]="spell.image || 'https://via.placeholder.com/400x200?text=No+Image'"
+          src="https://via.placeholder.com/400x200?text=Spell"
           [alt]="spell.name"
           class="spell-image"
         />
@@ -24,18 +24,17 @@ import { Spell } from '../../models/spell.model';
       </ng-template>
 
       <ng-template pTemplate="subtitle">
-        {{ spell.school | titlecase }} • Slots: {{ spell.slots_required }} • Usos: {{ spell.uses }}
+        {{ spell.school | titlecase }}
       </ng-template>
 
       <p class="spell-description">
-        {{ spell.description }}
+        {{ spell.description || 'Sem descrição' }}
       </p>
 
       <div class="spell-section">
         <h5>Custo</h5>
         <ul>
           <li>FP: {{ spell.cost_fp }}</li>
-          <li>Stamina: {{ spell.cost_stamina }}</li>
         </ul>
       </div>
 
@@ -43,7 +42,6 @@ import { Spell } from '../../models/spell.model';
         <h5>Requisitos</h5>
         <ul>
           <li>Inteligência: {{ spell.intelligence_required }}</li>
-          <li>Fé: {{ spell.faith_required }}</li>
         </ul>
       </div>
 
@@ -51,8 +49,7 @@ import { Spell } from '../../models/spell.model';
         <h5>Tipo</h5>
         <ul>
           <li *ngIf="spell.is_offensive">Ofensivo</li>
-          <li *ngIf="spell.is_buff">Buff</li>
-          <li *ngIf="spell.is_heal">Cura</li>
+          <li *ngIf="!spell.is_offensive">Defensivo</li>
         </ul>
       </div>
 
