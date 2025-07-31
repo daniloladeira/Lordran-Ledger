@@ -23,7 +23,6 @@ export class ApiWeaponService {
   }
 
   getWeapons(): Observable<Weapon[]> {
-    console.log('⚔️ [WEAPON SERVICE] Making GET request to:', this.apiUrl);
     return this.http.get<Weapon[]>(this.apiUrl, {
       headers: this.getAuthHeaders(),
     });
