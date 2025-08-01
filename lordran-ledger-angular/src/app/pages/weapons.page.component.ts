@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WeaponCardComponent } from '../components/weapons/weapons.component';
+import { WeaponsTableComponent } from '../components/weapons/weapons.component';
 import { ApiWeaponService } from '../services/weapon.service';
 import { ItemDetailDialogComponent } from '../components/item-detail-dialog/item-detail-dialog.component';
 import { ItemFormDialogComponent } from '../components/item-form-dialog/item-form-dialog.component';
 import { Weapon } from '../models/weapon.model';
-import { AuthService } from '../services/auth.service';
 
 // PrimeNG imports
 import { ButtonModule } from 'primeng/button';
@@ -20,7 +19,7 @@ import { MessageService } from 'primeng/api';
   providers: [MessageService],
   imports: [
     CommonModule,
-    WeaponCardComponent,
+    WeaponsTableComponent,
     ItemDetailDialogComponent,
     ItemFormDialogComponent,
     ButtonModule,
@@ -59,22 +58,19 @@ import { MessageService } from 'primeng/api';
         </ng-template>
       </p-toolbar>
 
-      <!-- Grid de Cards -->
-            <!-- Grid de Armas -->
-      <div class="weapons-grid" *ngIf="!isLoading">
-        <app-weapon-card
-          *ngFor="let weapon of weapons"
-          [weapon]="weapon"
+      <!-- Tabela de Armas -->
+      <div *ngIf="!isLoading">
+        <app-weapons-table
+          [weapons]="weapons"
           (view)="openDetailDialog($event)"
           (edit)="openEditDialog($event)"
           (delete)="onDeleteWeapon($event)"
-        ></app-weapon-card>
-        
-        <!-- Mensagem quando não há armas -->
-        <div *ngIf="weapons.length === 0" class="no-results">
-          <i class="pi pi-info-circle" style="font-size: 3rem; color: var(--text-color-secondary);"></i>
-          <p>Nenhuma arma cadastrada</p>
-        </div>
+        ></app-weapons-table>
+      </div>
+      
+      <!-- Loading -->
+      <div *ngIf="isLoading" class="loading-container">
+        <p>Carregando armas...</p>
       </div>
     </div>
 
@@ -107,8 +103,7 @@ export class WeaponsPageComponent implements OnInit {
 
   constructor(
     private weaponsService: ApiWeaponService,
-    private messageService: MessageService,
-    private authService: AuthService
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -116,25 +111,14 @@ export class WeaponsPageComponent implements OnInit {
   }
 
   loadWeapons() {
-    console.log('🏹 [WEAPONS PAGE] Starting to load weapons...');
-    console.log('🔍 [WEAPONS PAGE] User authenticated?', this.authService.isAuthenticated());
-    console.log('🔑 [WEAPONS PAGE] Current access token:', this.authService.getAccessToken()?.substring(0, 20) + '...');
-    
     this.isLoading = true;
     this.weaponsService.getWeapons().subscribe({
       next: (data) => {
-        console.log('✅ [WEAPONS PAGE] Successfully loaded weapons:', data);
         this.weapons = data;
         this.isLoading = false;
       },
       error: (err) => {
-        console.error('💥 [WEAPONS PAGE] Error loading weapons:', err);
-        console.error('💥 [WEAPONS PAGE] Error details:', {
-          status: err.status,
-          statusText: err.statusText,
-          url: err.url,
-          error: err.error
-        });
+        console.error(err);
         this.isLoading = false;
         this.messageService.add({
           severity: 'error',
@@ -163,10 +147,6 @@ export class WeaponsPageComponent implements OnInit {
   }
 
   onSaveWeapon(weapon: Weapon) {
-    if (!weapon.image) {
-      delete (weapon as Partial<Weapon>).image;
-    }
-
     if (this.isEditing) {
       this.weaponsService.updateWeapon(weapon.id, weapon).subscribe({
         next: (updated) => {

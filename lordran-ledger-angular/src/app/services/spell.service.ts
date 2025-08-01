@@ -23,7 +23,6 @@ export class ApiSpellService {
   }
 
   getSpells(): Observable<Spell[]> {
-    console.log('🪄 [SPELL SERVICE] Making GET request to:', this.apiUrl);
     return this.http.get<Spell[]>(this.apiUrl, {
       headers: this.getAuthHeaders(),
     });

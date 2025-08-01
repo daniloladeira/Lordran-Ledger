@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SpellCardComponent } from '../components/spells/spells.component';
+import { SpellsTableComponent } from '../components/spells/spells.component';
 import { ApiSpellService } from '../services/spell.service';
 import { Spell } from '../models/spell.model';
 
@@ -20,7 +20,7 @@ import { MessageService } from 'primeng/api';
   providers: [MessageService],
   imports: [
     CommonModule,
-    SpellCardComponent,
+    SpellsTableComponent,
     SpellDetailDialogComponent,
     SpellFormDialogComponent,
     ButtonModule,
@@ -59,22 +59,14 @@ import { MessageService } from 'primeng/api';
         </ng-template>
       </p-toolbar>
 
-      <!-- Grid de Cards -->
-            <!-- Grid de Feitiços -->
-      <div class="spells-grid" *ngIf="!isLoading">
-        <app-spell-card
-          *ngFor="let spell of spells"
-          [spell]="spell"
+      <!-- Tabela de Feitiços -->
+      <div *ngIf="!isLoading">
+        <app-spells-table
+          [spells]="spells"
           (view)="openDetailDialog($event)"
           (edit)="openEditDialog($event)"
           (delete)="onDeleteSpell($event)"
-        ></app-spell-card>
-        
-        <!-- Mensagem quando não há feitiços -->
-        <div *ngIf="spells.length === 0" class="no-results">
-          <i class="pi pi-info-circle" style="font-size: 3rem; color: var(--text-color-secondary);"></i>
-          <p>Nenhum feitiço cadastrado</p>
-        </div>
+        ></app-spells-table>
       </div>
     </div>
 

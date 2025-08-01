@@ -7,7 +7,7 @@ import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import { providePrimeNG } from 'primeng/config';
-import Aura from '@primeng/themes/aura'; // import default (correto para v20)
+import Material from '@primeng/themes/material';
 
 import { MessageService } from 'primeng/api';
 import { authInterceptor } from './interceptors/auth.interceptor';
@@ -25,11 +25,14 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {
-        preset: Aura,
+        preset: Material,
         options: {
-          darkModeSelector: '.app-dark',
-        },
+          prefix: 'p',
+          darkModeSelector: false,
+          cssLayer: false
+        }
       },
+      ripple: true
     }),
     MessageService,
   ],

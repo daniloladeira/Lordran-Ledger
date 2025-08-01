@@ -7,7 +7,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
@@ -22,7 +22,7 @@ import type { Weapon } from '../../models/weapon.model';
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
+    ReactiveFormsModule,
     DialogModule,
     InputTextModule,
     InputNumberModule,
@@ -37,7 +37,7 @@ import type { Weapon } from '../../models/weapon.model';
       [style]="{ width: '600px' }"
       (onHide)="onCancel()"
     >
-      <form (ngSubmit)="onSave()" #weaponForm="ngForm">
+      <form [formGroup]="weaponForm" (ngSubmit)="onSave()">
         <div class="p-fluid p-formgrid p-grid">
           <div class="p-field p-col-12 p-md-6">
             <label for="name">Nome</label>
@@ -45,58 +45,69 @@ import type { Weapon } from '../../models/weapon.model';
               id="name"
               type="text"
               pInputText
-              [(ngModel)]="weaponFormModel.name"
-              name="name"
+              formControlName="name"
               required
+              [class.ng-invalid]="weaponForm.get('name')?.invalid && weaponForm.get('name')?.touched"
             />
+            <small *ngIf="weaponForm.get('name')?.invalid && weaponForm.get('name')?.touched" class="p-error">
+              Nome é obrigatório
+            </small>
           </div>
 
           <div class="p-field p-col-12 p-md-6">
             <label for="type">Tipo</label>
             <select
               id="type"
-              [(ngModel)]="weaponFormModel.type"
-              name="type"
+              formControlName="type"
               class="p-inputtext p-component"
               required
+              [class.ng-invalid]="weaponForm.get('type')?.invalid && weaponForm.get('type')?.touched"
             >
-              <option [ngValue]="null" disabled selected>
+              <option value="" disabled>
                 Selecione o tipo
               </option>
               <option *ngFor="let option of typeOptions" [value]="option.value">
                 {{ option.label }}
               </option>
             </select>
+            <small *ngIf="weaponForm.get('type')?.invalid && weaponForm.get('type')?.touched" class="p-error">
+              Tipo é obrigatório
+            </small>
           </div>
 
           <div class="p-field p-col-12 p-md-6">
             <label for="weight">Peso</label>
             <p-inputNumber
               id="weight"
-              [(ngModel)]="weaponFormModel.weight"
-              name="weight"
+              formControlName="weight"
               [min]="0"
               [mode]="'decimal'"
               [step]="0.1"
+              [class.ng-invalid]="weaponForm.get('weight')?.invalid && weaponForm.get('weight')?.touched"
             ></p-inputNumber>
+            <small *ngIf="weaponForm.get('weight')?.invalid && weaponForm.get('weight')?.touched" class="p-error">
+              Peso deve ser maior que 0
+            </small>
           </div>
 
           <div class="p-field p-col-12 p-md-6">
             <label for="physical_damage">Dano Físico</label>
             <p-inputNumber
               id="physical_damage"
-              [(ngModel)]="weaponFormModel.physical_damage"
-              name="physical_damage"
+              formControlName="physical_damage"
               [min]="0"
+              [class.ng-invalid]="weaponForm.get('physical_damage')?.invalid && weaponForm.get('physical_damage')?.touched"
             ></p-inputNumber>
+            <small *ngIf="weaponForm.get('physical_damage')?.invalid && weaponForm.get('physical_damage')?.touched" class="p-error">
+              Dano deve ser maior ou igual a 0
+            </small>
           </div>
 
           <div class="p-field p-col-12 p-md-6">
             <label for="strength_required">Força Requerida</label>
             <p-inputNumber
               id="strength_required"
-              [(ngModel)]="weaponFormModel.strength_required"
-              name="strength_required"
+              formControlName="strength_required"
               [min]="0"
             ></p-inputNumber>
           </div>
@@ -105,8 +116,7 @@ import type { Weapon } from '../../models/weapon.model';
             <label for="dexterity_required">Destreza Requerida</label>
             <p-inputNumber
               id="dexterity_required"
-              [(ngModel)]="weaponFormModel.dexterity_required"
-              name="dexterity_required"
+              formControlName="dexterity_required"
               [min]="0"
             ></p-inputNumber>
           </div>
@@ -117,8 +127,7 @@ import type { Weapon } from '../../models/weapon.model';
               id="description"
               rows="3"
               pInputTextarea
-              [(ngModel)]="weaponFormModel.description"
-              name="description"
+              formControlName="description"
             ></textarea>
           </div>
         </div>
@@ -128,7 +137,6 @@ import type { Weapon } from '../../models/weapon.model';
             pButton
             type="submit"
             label="Salvar"
-            [disabled]="!weaponForm.form.valid"
           ></button>
           <button
             pButton
@@ -143,7 +151,20 @@ import type { Weapon } from '../../models/weapon.model';
   `,
   styles: [
     `
-      /* Seu CSS aqui */
+      .p-error {
+        color: #e74c3c;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+        display: block;
+      }
+      
+      .ng-invalid.ng-touched {
+        border-color: #e74c3c !important;
+      }
+      
+      .p-field {
+        margin-bottom: 1rem;
+      }
     `,
   ],
 })
@@ -155,7 +176,7 @@ export class ItemFormDialogComponent implements OnChanges {
   @Output() save = new EventEmitter<Weapon>();
   @Output() displayDialogChange = new EventEmitter<boolean>();
 
-  weaponFormModel: Partial<Weapon> = {};
+  weaponForm: FormGroup;
 
   typeOptions: SelectItem[] = [
     { label: 'Sword', value: 'sword' },
@@ -169,35 +190,79 @@ export class ItemFormDialogComponent implements OnChanges {
     { label: 'Magic', value: 'magic' },
   ];
 
+  constructor(private fb: FormBuilder) {
+    this.weaponForm = this.createForm();
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['displayDialog'] && this.displayDialog) {
-      this.weaponFormModel =
-        this.isEditing && this.item ? { ...this.item } : this.getEmptyWeapon();
+      const weapon = this.isEditing && this.item ? this.item : this.getEmptyWeapon();
+      this.weaponForm.patchValue(weapon);
     }
   }
 
   onSave() {
-    this.save.emit(this.weaponFormModel as Weapon);
-    this.onCancel();
+    if (this.weaponForm.valid) {
+      const formValue = this.weaponForm.value;
+      
+      // Cria o objeto com apenas os campos necessários (SEM image)
+      const weaponData: any = {
+        name: formValue.name,
+        description: formValue.description || '',
+        type: formValue.type,
+        physical_damage: formValue.physical_damage,
+        weight: formValue.weight,
+        strength_required: formValue.strength_required,
+        dexterity_required: formValue.dexterity_required
+      };
+      
+      // Adiciona id apenas se estiver editando
+      if (this.isEditing && this.item?.id) {
+        weaponData.id = this.item.id;
+      }
+      
+      console.log('Dados da arma sendo enviados (sem image):', weaponData);
+      this.save.emit(weaponData as Weapon);
+      this.onCancel();
+    } else {
+      // Marca todos os campos como touched para mostrar os erros
+      Object.keys(this.weaponForm.controls).forEach(key => {
+        this.weaponForm.get(key)?.markAsTouched();
+      });
+      console.log('Formulário inválido:', this.weaponForm.errors);
+      console.log('Controles inválidos:', Object.keys(this.weaponForm.controls).filter(key => this.weaponForm.get(key)?.invalid));
+    }
   }
 
   onCancel() {
     this.displayDialog = false;
     this.displayDialogChange.emit(false);
+    this.weaponForm.reset();
+    // Reset para valores padrão após o reset
+    this.weaponForm.patchValue(this.getEmptyWeapon());
   }
 
-  private getEmptyWeapon(): Weapon {
+  private createForm(): FormGroup {
+    return this.fb.group({
+      name: ['', Validators.required],
+      description: [''],
+      type: ['', Validators.required],
+      physical_damage: [0, [Validators.min(0)]],
+      weight: [[Validators.min(0)]],
+      strength_required: [10, [Validators.min(0)]],
+      dexterity_required: [10, [Validators.min(0)]]
+    });
+  }
+
+  private getEmptyWeapon(): any {
     return {
-      id: 0,
       name: '',
       description: '',
       type: '',
       physical_damage: 0,
       weight: 1.0,
       strength_required: 10,
-      dexterity_required: 10,
-      created_at: new Date(),
-      image: '',
+      dexterity_required: 10
     };
   }
 }
