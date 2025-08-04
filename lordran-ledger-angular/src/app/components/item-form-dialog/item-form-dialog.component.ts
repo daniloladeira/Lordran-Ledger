@@ -47,11 +47,7 @@ import type { Weapon } from '../../models/weapon.model';
               pInputText
               formControlName="name"
               required
-              [class.ng-invalid]="weaponForm.get('name')?.invalid && weaponForm.get('name')?.touched"
             />
-            <small *ngIf="weaponForm.get('name')?.invalid && weaponForm.get('name')?.touched" class="p-error">
-              Nome é obrigatório
-            </small>
           </div>
 
           <div class="p-field p-col-12 p-md-6">
@@ -61,7 +57,6 @@ import type { Weapon } from '../../models/weapon.model';
               formControlName="type"
               class="p-inputtext p-component"
               required
-              [class.ng-invalid]="weaponForm.get('type')?.invalid && weaponForm.get('type')?.touched"
             >
               <option value="" disabled>
                 Selecione o tipo
@@ -70,9 +65,6 @@ import type { Weapon } from '../../models/weapon.model';
                 {{ option.label }}
               </option>
             </select>
-            <small *ngIf="weaponForm.get('type')?.invalid && weaponForm.get('type')?.touched" class="p-error">
-              Tipo é obrigatório
-            </small>
           </div>
 
           <div class="p-field p-col-12 p-md-6">
@@ -83,11 +75,7 @@ import type { Weapon } from '../../models/weapon.model';
               [min]="0"
               [mode]="'decimal'"
               [step]="0.1"
-              [class.ng-invalid]="weaponForm.get('weight')?.invalid && weaponForm.get('weight')?.touched"
             ></p-inputNumber>
-            <small *ngIf="weaponForm.get('weight')?.invalid && weaponForm.get('weight')?.touched" class="p-error">
-              Peso deve ser maior que 0
-            </small>
           </div>
 
           <div class="p-field p-col-12 p-md-6">
@@ -96,11 +84,7 @@ import type { Weapon } from '../../models/weapon.model';
               id="physical_damage"
               formControlName="physical_damage"
               [min]="0"
-              [class.ng-invalid]="weaponForm.get('physical_damage')?.invalid && weaponForm.get('physical_damage')?.touched"
             ></p-inputNumber>
-            <small *ngIf="weaponForm.get('physical_damage')?.invalid && weaponForm.get('physical_damage')?.touched" class="p-error">
-              Dano deve ser maior ou igual a 0
-            </small>
           </div>
 
           <div class="p-field p-col-12 p-md-6">
@@ -137,6 +121,7 @@ import type { Weapon } from '../../models/weapon.model';
             pButton
             type="submit"
             label="Salvar"
+            [disabled]="!weaponForm.valid"
           ></button>
           <button
             pButton
@@ -151,20 +136,7 @@ import type { Weapon } from '../../models/weapon.model';
   `,
   styles: [
     `
-      .p-error {
-        color: #e74c3c;
-        font-size: 0.875rem;
-        margin-top: 0.25rem;
-        display: block;
-      }
-      
-      .ng-invalid.ng-touched {
-        border-color: #e74c3c !important;
-      }
-      
-      .p-field {
-        margin-bottom: 1rem;
-      }
+      /* Seu CSS aqui */
     `,
   ],
 })
@@ -225,10 +197,6 @@ export class ItemFormDialogComponent implements OnChanges {
       this.save.emit(weaponData as Weapon);
       this.onCancel();
     } else {
-      // Marca todos os campos como touched para mostrar os erros
-      Object.keys(this.weaponForm.controls).forEach(key => {
-        this.weaponForm.get(key)?.markAsTouched();
-      });
       console.log('Formulário inválido:', this.weaponForm.errors);
       console.log('Controles inválidos:', Object.keys(this.weaponForm.controls).filter(key => this.weaponForm.get(key)?.invalid));
     }
@@ -247,7 +215,7 @@ export class ItemFormDialogComponent implements OnChanges {
       name: ['', Validators.required],
       description: [''],
       type: ['', Validators.required],
-      physical_damage: [0, [Validators.min(0)]],
+      physical_damage: [0, [Validators.min(10)]],
       weight: [[Validators.min(0)]],
       strength_required: [10, [Validators.min(0)]],
       dexterity_required: [10, [Validators.min(0)]]

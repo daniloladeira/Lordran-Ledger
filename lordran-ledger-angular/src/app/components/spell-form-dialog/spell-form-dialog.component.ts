@@ -50,11 +50,7 @@ import type { Spell } from '../../models/spell.model';
               pInputText
               formControlName="name"
               required
-              [class.ng-invalid]="spellForm.get('name')?.invalid && spellForm.get('name')?.touched"
             />
-            <small *ngIf="spellForm.get('name')?.invalid && spellForm.get('name')?.touched" class="p-error">
-              Nome é obrigatório
-            </small>
           </div>
 
           <div class="p-field p-col-12 p-md-6">
@@ -64,7 +60,6 @@ import type { Spell } from '../../models/spell.model';
               formControlName="school"
               class="p-inputtext p-component p-element"
               required
-              [class.ng-invalid]="spellForm.get('school')?.invalid && spellForm.get('school')?.touched"
             >
               <option value="" disabled>
                 Selecione a escola
@@ -73,9 +68,6 @@ import type { Spell } from '../../models/spell.model';
                 {{ option.label }}
               </option>
             </select>
-            <small *ngIf="spellForm.get('school')?.invalid && spellForm.get('school')?.touched" class="p-error">
-              Escola é obrigatória
-            </small>
           </div>
 
           <div class="p-field p-col-12 p-md-6">
@@ -127,6 +119,7 @@ import type { Spell } from '../../models/spell.model';
             pButton
             type="submit"
             label="Salvar"
+            [disabled]="!spellForm.valid"
           ></button>
           <button
             pButton
@@ -139,24 +132,6 @@ import type { Spell } from '../../models/spell.model';
       </form>
     </p-dialog>
   `,
-  styles: [
-    `
-      .p-error {
-        color: #e74c3c;
-        font-size: 0.875rem;
-        margin-top: 0.25rem;
-        display: block;
-      }
-      
-      .ng-invalid.ng-touched {
-        border-color: #e74c3c !important;
-      }
-      
-      .p-field {
-        margin-bottom: 1rem;
-      }
-    `,
-  ],
 })
 export class SpellFormDialogComponent implements OnChanges {
   @Input() displayDialog = false;
@@ -190,13 +165,6 @@ export class SpellFormDialogComponent implements OnChanges {
     if (this.spellForm.valid) {
       this.save.emit(this.spellForm.value as Spell);
       this.onCancel();
-    } else {
-      // Marca todos os campos como touched para mostrar os erros
-      Object.keys(this.spellForm.controls).forEach(key => {
-        this.spellForm.get(key)?.markAsTouched();
-      });
-      console.log('Formulário inválido:', this.spellForm.errors);
-      console.log('Controles inválidos:', Object.keys(this.spellForm.controls).filter(key => this.spellForm.get(key)?.invalid));
     }
   }
 
